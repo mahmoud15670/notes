@@ -38,8 +38,8 @@ class HomePage extends StatelessWidget {
               if (user?.emailVerified ?? false){
 
               }else {
-                showDialog(context: context, builder: (context) => const VerifyEmailView(),);
-                // Navigator.of(context).push(MaterialPageRoute(builder:(context) => const VerifyEmailView()));
+
+                Navigator.of(context).push(MaterialPageRoute(builder:(context) => const VerifyEmailView()));
               }
               return const Text('done');
             default:
