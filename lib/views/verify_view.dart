@@ -11,7 +11,12 @@ class VerifyEmailView extends StatefulWidget {
 class _VerifyEmailViewState extends State<VerifyEmailView> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('login'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: Column(
         children: [
           const Text('please verifte you email'),
           TextButton(
@@ -22,6 +27,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             child: const Text('send email vertfiction'),
           )
         ],
-      );
+      )
+    );
   }
 }

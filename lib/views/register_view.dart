@@ -28,7 +28,12 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('login'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: Column(
       children: [
         TextField(
           controller: _email,
@@ -71,6 +76,7 @@ class _RegisterViewState extends State<RegisterView> {
             },
             child: const Text('Register')),
       ],
-    );
+    )
+  );
   }
 }
