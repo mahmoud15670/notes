@@ -10,6 +10,7 @@ Future<void> showErrorDialog(
       return  AlertDialog(
       title: const Text('Error'),
       content: Text(text),
+      icon: const Icon(Icons.error_outline),
       backgroundColor: Colors.red[100],
       actions: [
         TextButton(
