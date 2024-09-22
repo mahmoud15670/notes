@@ -39,13 +39,7 @@ class HomePage extends StatelessWidget {
               final user = FirebaseAuth.instance.currentUser;
               if (user != null){
                 if (user.emailVerified){
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: const Text('Home'),
-                      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                    ),
-                    body: const Text('done')
-                  );
+                  return const NotesView();
                 }else {
                   return const VerifyEmailView();
                 }
@@ -60,3 +54,34 @@ class HomePage extends StatelessWidget {
   }
 }
 
+enum MenuAction { logout}
+class NotesView extends StatefulWidget {
+  const NotesView({super.key});
+
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          PopupMenuButton<MenuAction>(
+            onSelected: (value) {
+            
+          },
+          itemBuilder: const PopupMenuItem <MenuAction>(
+            value: MenuAction.logout,
+            child: Text('logout')
+            )
+          )
+        ],
+      ),
+      body: const Text('done')
+    );
+  }
+}
