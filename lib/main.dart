@@ -5,6 +5,7 @@ import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_view.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer' as devtools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,8 +77,8 @@ class _NotesViewState extends State<NotesView> {
             switch (value) {
               case MenuAction.logout:
                 final shouldsignout = await showLogoutDialog(context);
-                
-                await FirebaseAuth.instance.signOut();
+                devtools.log(shouldsignout.toString());
+                // await FirebaseAuth.instance.signOut();
             }
           },
           itemBuilder: (context) {
