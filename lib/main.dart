@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
                 return const VerifyEmailView();
               }
             default:
-              return indecato;
+              return const CircularProgressIndicator();
           }
         },
       );
