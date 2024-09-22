@@ -72,6 +72,7 @@ class _LoginViewState extends State<LoginView> {
               },
               child: const Text('Login')),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("don't have account ?"),
                   TextButton(
