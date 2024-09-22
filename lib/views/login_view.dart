@@ -71,14 +71,14 @@ class _LoginViewState extends State<LoginView> {
                 }
               },
               child: const Text('Login')),
-              const Row(
+              Row(
                 children: [
-                  Text("don't have account ?"),
+                  const Text("don't have account ?"),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil('/register/', (route) => false,);
+                      Navigator.of(context).pushNamedAndRemoveUntil('/register/', (route) => false,);
                     }, 
-                    child: Text('signup !'))
+                    child: const Text('signup !'))
                 ],
               )
         ],
