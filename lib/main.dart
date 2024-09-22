@@ -71,7 +71,7 @@ class _NotesViewState extends State<NotesView> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           PopupMenuButton<MenuAction>(
-            style: Icons.menu,
+            icon: const Icon(Icons.menu),
             onSelected: (value) async {
             if (value == MenuAction.logout){
               await FirebaseAuth.instance.signOut();
