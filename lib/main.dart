@@ -39,7 +39,13 @@ class HomePage extends StatelessWidget {
               final user = FirebaseAuth.instance.currentUser;
               if (user != null){
                 if (user.emailVerified){
-                  return const Scaffold();
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: const Text('Home'),
+                      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                    body: const Text('done')
+                  );
                 }else {
                   return const VerifyEmailView();
                 }
