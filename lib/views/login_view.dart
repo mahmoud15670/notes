@@ -1,9 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mynotes/firebase_options.dart';
+
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -32,62 +29,44 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Login'),
-      ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
+    return Column(
+      children: [
+        TextField(
+          controller: _email,
+          enableSuggestions: false,
+          autocorrect: false,
+          keyboardType: TextInputType.emailAddress,
+          decoration:
+              const InputDecoration(hintText: 'Enter your email'),
         ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(
-                children: [
-                  TextField(
-                    controller: _email,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration:
-                        const InputDecoration(hintText: 'Enter your email'),
-                  ),
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration:
-                        const InputDecoration(hintText: 'Enter your password'),
-                  ),
-                  TextButton(
-                      onPressed: () async {
-                        final email = _email.text;
-                        final password = _password.text;
-                        try {
-                          final useris = await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: email, password: password);
-                          print(useris);
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'invalid-credential'){
-                            print('email or password is incorrect');
-                          }else if (e.code == 'invalid-email') {
-                            print('invalid email');
+        TextField(
+          controller: _password,
+          obscureText: true,
+          enableSuggestions: false,
+          autocorrect: false,
+          decoration:
+              const InputDecoration(hintText: 'Enter your password'),
+        ),
+        TextButton(
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
+              try {
+                final useris = await FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                        email: email, password: password);
+                print(useris);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'invalid-credential'){
+                  print('email or password is incorrect');
+                }else if (e.code == 'invalid-email') {
+                  print('invalid email');
 
-                          }
-                        }
-                      },
-                      child: const Text('Login')),
-                ],
-              );
-            default:
-              return const Text('loding....');
-          }
-        },
-      ),
+                }
+              }
+            },
+            child: const Text('Login')),
+      ],
     );
   }
 
