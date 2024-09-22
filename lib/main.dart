@@ -72,7 +72,9 @@ class _NotesViewState extends State<NotesView> {
         actions: [
           PopupMenuButton<MenuAction>(
             onSelected: (value) {
-            
+            if (value == MenuAction.logout){
+              print('value 1');
+            }
           },
           itemBuilder: (context) {
             return const [
