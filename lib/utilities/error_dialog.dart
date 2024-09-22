@@ -10,6 +10,7 @@ Future<void> showErrorDialog(
       return  AlertDialog(
       title: const Text('Error'),
       content: Text(text),
+      backgroundColor: Colors.red[100],
       actions: [
         TextButton(
           onPressed: () {
