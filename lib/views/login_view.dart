@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynotes/constance/routs.dart';
@@ -71,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
                     await showErrorDialog(context, '${e.message}');      
                   }
                 }catch (e) {
-                  await showErrorDialog(context, '${e.toString()}');      
+                  await showErrorDialog(context, e.toString());      
                 }
               },
               child: const Text('Login')),
