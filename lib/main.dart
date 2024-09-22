@@ -23,7 +23,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('home pae'),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('home pae'),
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
@@ -32,7 +34,14 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              print(FirebaseAuth.instance.currentUser);
+              final user = FirebaseAuth.instance.currentUser;
+              if (user?.emailVerified ?? false){
+                print('your email is verifaied');
+
+              }else {
+
+                print('you need to verifide your email');
+              }
               return const Text('done');
             default:
               return const Text('loding....');
