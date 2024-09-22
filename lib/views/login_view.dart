@@ -60,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
                   await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: email, password: password);
-                  await Navigator.of(context).pushNamedAndRemoveUntil('/note', predicate)
+                  await Navigator.of(context).pushNamedAndRemoveUntil('/notes/', (route) => false,);
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'invalid-credential'){
                     devtools.log('email or password is incorrect');
