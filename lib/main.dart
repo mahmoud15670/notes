@@ -73,8 +73,11 @@ class _NotesViewState extends State<NotesView> {
           PopupMenuButton<MenuAction>(
             icon: const Icon(Icons.menu),
             onSelected: (value) async {
-            if (value == MenuAction.logout){
-              await FirebaseAuth.instance.signOut();
+            switch (value) {
+              case MenuAction.logout:
+                final shouldsignout = await showLogoutDialog(context);
+                
+                await FirebaseAuth.instance.signOut();
             }
           },
           itemBuilder: (context) {
@@ -91,4 +94,22 @@ class _NotesViewState extends State<NotesView> {
       body: const Text('done')
     );
   }
+}
+
+Future<bool> showLogoutDialog (BuildContext context){
+  return showDialog<bool>(context: context, builder: (context) {
+    return AlertDialog(
+      title: const Text('Sign Out'),
+      content: const Text('Are you sour you want to sign out?'),
+      actions: [
+        TextButton(onPressed: () {
+          Navigator.of(context).pop(false);
+        }, child: const Text('cancel')),
+        TextButton(onPressed: () {
+          Navigator.of(context).pop(true);
+        }, child: const Text('signout')),
+      ],
+    );
+  },
+  ).then((value) => value ?? false,);
 }
