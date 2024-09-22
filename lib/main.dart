@@ -89,6 +89,7 @@ class _NotesViewState extends State<NotesView> {
           },
           enableFeedback: true,
           offset: const Offset(50.5, 50.0),
+          position: PopupMenuPosition.under,
           itemBuilder: (context) {
             return const [
               PopupMenuItem <MenuAction>(
