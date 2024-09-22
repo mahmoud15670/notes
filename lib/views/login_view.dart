@@ -71,6 +71,16 @@ class _LoginViewState extends State<LoginView> {
                 }
               },
               child: const Text('Login')),
+              const Row(
+                children: [
+                  Text("don't have account ?"),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil('/register/', (route) => false,);
+                    }, 
+                    child: Text('signup !'))
+                ],
+              )
         ],
       ),
     );
