@@ -51,3 +51,17 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+class veri extends StatefulWidget {
+  const veri({super.key});
+
+  @override
+  State<veri> createState() => _veriState();
+}
+
+class _veriState extends State<veri> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
