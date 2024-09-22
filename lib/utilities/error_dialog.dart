@@ -7,15 +7,15 @@ Future<void> showErrorDialog(
   return showDialog(
     context: context, 
     builder: (context) {
-      return const AlertDialog(
-      title: Text('Error'),
+      return  AlertDialog(
+      title: const Text('Error'),
       content: Text(text),
       actions: [
         TextButton(
           onPressed: () {
           Navigator.of(context).pop();
         }, 
-        child: Text('OK'))
+        child: const Text('OK'))
       ],
     );
     },
