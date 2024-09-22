@@ -11,7 +11,7 @@ import 'dart:developer' as devtools show log;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-    title: 'Flutter Demo',
+    title: 'Notes',
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 39, 176, 42)),
