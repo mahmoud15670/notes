@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mynotes/constance/routs.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_view.dart';
@@ -18,10 +19,10 @@ void main() {
     ),
     home: const HomePage(),
     routes: {
-      loginRo: (context) => const LoginView(),
-      '/register/': (context) => const RegisterView(),
-      '/verfirty/': (context) => const VerifyEmailView(),
-      '/notes/': (context) => const NotesView(),
+      loginRout: (context) => const LoginView(),
+      registerRout: (context) => const RegisterView(),
+      verfiyRout: (context) => const VerifyEmailView(),
+      notesRout: (context) => const NotesView(),
     },
   ));
 }
