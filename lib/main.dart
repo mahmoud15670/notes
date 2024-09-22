@@ -36,11 +36,10 @@ class HomePage extends StatelessWidget {
             case ConnectionState.done:
               final user = FirebaseAuth.instance.currentUser;
               if (user?.emailVerified ?? false){
-                print('your email is verifaied');
 
               }else {
 
-                print('you need to verifide your email');
+                Navigator.of(context).push(MaterialPageRoute(builder:(context) => const VerifyEmailView()));
               }
               return const Text('done');
             default:
@@ -52,16 +51,21 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class veri extends StatefulWidget {
-  const veri({super.key});
+class VerifyEmailView extends StatefulWidget {
+  const VerifyEmailView({super.key});
 
   @override
-  State<veri> createState() => _veriState();
+  State<VerifyEmailView> createState() => _VerifyEmailViewState();
 }
 
-class _veriState extends State<veri> {
+class _VerifyEmailViewState extends State<VerifyEmailView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Email verify'),
+      ),
+      );
   }
 }
