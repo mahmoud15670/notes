@@ -87,10 +87,11 @@ class _NotesViewState extends State<NotesView> {
                 }
             }
           },
+          enableFeedback: true,
+          offset: const Offset(50.5, 50.0),
           itemBuilder: (context) {
             return const [
               PopupMenuItem <MenuAction>(
-                
                 value: MenuAction.logout,
                 child: Text('logout')
               )
