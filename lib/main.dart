@@ -78,7 +78,10 @@ class _NotesViewState extends State<NotesView> {
               case MenuAction.logout:
                 final shouldsignout = await showLogoutDialog(context);
                 devtools.log(shouldsignout.toString());
-                // await FirebaseAuth.instance.signOut();
+                if (shouldsignout) {
+                await FirebaseAuth.instance.signOut();
+                break;
+                }
             }
           },
           itemBuilder: (context) {
