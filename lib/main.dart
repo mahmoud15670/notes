@@ -75,6 +75,7 @@ class _NotesViewState extends State<NotesView> {
         actions: [
           PopupMenuButton<MenuAction>(
             icon: const Icon(Icons.menu),
+            iconSize: 45.0,
             onSelected: (value) async {
             switch (value) {
               case MenuAction.logout:
@@ -107,6 +108,7 @@ Future<bool> showLogoutDialog (BuildContext context){
     return AlertDialog(
       title: const Text('Sign Out'),
       content: const Text('Are you sour you want to sign out?'),
+      icon: const Icon(Icons.logout),
       actions: [
         TextButton(onPressed: () {
           Navigator.of(context).pop(false);
