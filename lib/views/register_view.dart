@@ -1,8 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import '../firebase_options.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -31,67 +28,49 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Register'),
-      ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
+    return Column(
+      children: [
+        TextField(
+          controller: _email,
+          enableSuggestions: false,
+          autocorrect: false,
+          keyboardType: TextInputType.emailAddress,
+          decoration:
+              const InputDecoration(hintText: 'Enter your email'),
         ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(
-                children: [
-                  TextField(
-                    controller: _email,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration:
-                        const InputDecoration(hintText: 'Enter your email'),
-                  ),
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration:
-                        const InputDecoration(hintText: 'Enter your password'),
-                  ),
-                  TextButton(
-                      onPressed: () async {
-                        final email = _email.text;
-                        final password = _password.text;
-                        try {
-                        final useris = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: email, password: password);
-                        print(useris);
-                        }on FirebaseAuthException catch (e) {
-                          if (e.code == 'email-already-in-use'){
-                            print('The email address is already in use by another account.');
+        TextField(
+          controller: _password,
+          obscureText: true,
+          enableSuggestions: false,
+          autocorrect: false,
+          decoration:
+              const InputDecoration(hintText: 'Enter your password'),
+        ),
+        TextButton(
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
+              try {
+              final useris = await FirebaseAuth.instance
+                  .createUserWithEmailAndPassword(
+                      email: email, password: password);
+              print(useris);
+              }on FirebaseAuthException catch (e) {
+                if (e.code == 'email-already-in-use'){
+                  print('The email address is already in use by another account.');
 
-                          }else if (e.code == 'weak-password'){
-                            print('The password is weak');
+                }else if (e.code == 'weak-password'){
+                  print('The password is weak');
 
-                          }else if (e.code == 'invalid-email'){
-                            print('invalid email');
+                }else if (e.code == 'invalid-email'){
+                  print('invalid email');
 
-                          }
-                          print(e.code);
-                        }
-                      },
-                      child: const Text('Register')),
-                ],
-              );
-            default:
-              return const Text('loding....');
-          }
-        },
-      ),
+                }
+                print(e.code);
+              }
+            },
+            child: const Text('Register')),
+      ],
     );
   }
 }
