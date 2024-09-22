@@ -87,8 +87,7 @@ class _NotesViewState extends State<NotesView> {
                 }
             }
           },
-          enableFeedback: true,
-          // offset: const Offset(10.5, 10.0),
+          enableFeedback: true,          
           position: PopupMenuPosition.under,
           itemBuilder: (context) {
             return const [
