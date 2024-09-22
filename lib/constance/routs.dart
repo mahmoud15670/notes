@@ -1,3 +1,4 @@
-const lognRout = '/login/';
+const loginRout = '/login/';
 const registerRout = '/register/';
-const verfiyRout = '/login/';
+const verfiyRout = '/verfirty/';
+const notesRout = '/notes/';
