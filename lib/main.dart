@@ -19,6 +19,7 @@ void main() {
     routes: {
       '/login/': (context) => const LoginView(),
       '/register/': (context) => const RegisterView(),
+      '/verfirty/': (context) => const VerifyEmailView(),
     },
   ));
 }
@@ -35,8 +36,13 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              // final user = FirebaseAuth.instance.currentUser;
-              // 
+              final user = FirebaseAuth.instance.currentUser;
+              // if (user?.emailVerified ?? false){
+              //   return const Text('done');
+              // }else {
+              //   return const VerifyEmailView();
+              // }
+              print(user);
               return const LoginView();
             default:
               return const CircularProgressIndicator();
