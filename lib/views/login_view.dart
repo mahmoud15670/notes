@@ -57,10 +57,10 @@ class _LoginViewState extends State<LoginView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  final useris = await FirebaseAuth.instance
+                  await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: email, password: password);
-                  devtools.log(useris.toString());
+                  await Navigator.of(context).pushNamedAndRemoveUntil('/note', predicate)
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'invalid-credential'){
                     devtools.log('email or password is incorrect');
