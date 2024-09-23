@@ -20,13 +20,18 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
       body: Column(
         children: [
           const Text("we've send a veritation email please check your inbox."),
-          const Text("if you didn't reseved email "),
-          TextButton(
-            onPressed: () async {
-            final user = FirebaseAuth.instance.currentUser;
-            await user?.sendEmailVerification();
-            }, 
-            child: const Text('send email vertfiction'),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text("if you didn't reseved email "),
+              TextButton(
+                onPressed: () async {
+                final user = FirebaseAuth.instance.currentUser;
+                await user?.sendEmailVerification();
+                }, 
+                child: const Text('send email vertfiction'),
+              ),
+            ],
           ),
           TextButton(
             onPressed: () async {
