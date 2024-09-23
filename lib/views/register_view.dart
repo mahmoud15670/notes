@@ -64,6 +64,8 @@ class _RegisterViewState extends State<RegisterView> {
               await FirebaseAuth.instance
                   .createUserWithEmailAndPassword(
                       email: email, password: password);
+              final user = FirebaseAuth.instance.getRedirectResult();
+              
               Navigator.of(context).pushNamed(verfiyRout);
               }on FirebaseAuthException catch (e) {
                 if (e.code == 'email-already-in-use'){
