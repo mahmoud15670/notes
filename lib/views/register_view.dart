@@ -64,7 +64,7 @@ class _RegisterViewState extends State<RegisterView> {
               final useris = await FirebaseAuth.instance
                   .createUserWithEmailAndPassword(
                       email: email, password: password);
-              devtools.log(useris.toString());
+              Navigator.of(context).pushNamedAndRemoveUntil(verfiyRout, (route) => false,);
               }on FirebaseAuthException catch (e) {
                 if (e.code == 'email-already-in-use'){
                   await showErrorDialog(context, 'The email address is already in use by another account.');
