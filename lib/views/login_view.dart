@@ -63,7 +63,12 @@ class _LoginViewState extends State<LoginView> {
                   await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: email, password: password);
-                
+                  final user = FirebaseAuth.instance.currentUser;
+                  if (user?.emailVerified ?? false){
+                    Navigator.of(context).pushNamedAndRemoveUntil(notesRout, (route) => false,);
+                  }else{
+                    Navigator.of(context).pushNamedAndRemoveUntil(verfiyRout, (route) => false,);
+                  }
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'invalid-credential'){
                     await showErrorDialog(context, 'email or password is incorrect');
@@ -83,7 +88,7 @@ class _LoginViewState extends State<LoginView> {
                   const Text("don't have account ?"),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(registerRout, (route) => false,);
+                    Navigator.of(context).pushNamedAndRemoveUntil(registerRout, (route) => false,);
                     }, 
                     child: const Text('signup !'))
                 ],
