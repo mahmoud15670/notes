@@ -5,19 +5,44 @@ import 'package:mynotes/services/auth/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseAuthException;
 
-class FirebaseAuthProvider implements AuthProvider{
+class FirebaseAuthProvider implements AuthProvider {
   @override
-  Future<AuthUser> createUser({required String email, required String password}) {
-    // TODO: implement createUser
-    throw UnimplementedError();
+  Future<AuthUser> createUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final user = currentUser;
+      if (user != null) {
+        return user;
+      } else {
+        throw UserNotLoggedInAuthException();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw EmailAlradyInUseAuthException();
+      } else if (e.code == 'weak-password') {
+        throw WeakPasswordAuthException();
+      } else if (e.code == 'invalid-email') {
+        throw InvaidEmailAuthException();
+      } else {
+        throw GenericAuthException();
+      }
+    } catch (_) {
+      throw GenericAuthException();
+    }
   }
 
   @override
   AuthUser? get currentUser {
     final user = FirebaseAuth.instance.currentUser;
-    if (user != null){
+    if (user != null) {
       return AuthUser.fromFirebase(user);
-    }else {
+    } else {
       return null;
     }
   }
@@ -39,5 +64,4 @@ class FirebaseAuthProvider implements AuthProvider{
     // TODO: implement sendEmailVerification
     throw UnimplementedError();
   }
-
 }
