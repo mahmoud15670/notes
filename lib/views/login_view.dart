@@ -1,8 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynotes/constance/routs.dart';
+import 'package:mynotes/services/auth/auth_exceptions.dart';
+import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/utilities/error_dialog.dart';
 
 class LoginView extends StatefulWidget {
@@ -58,12 +59,13 @@ class _LoginViewState extends State<LoginView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                  await AuthServices.firebase().logIn(
                     email: email,
                     password: password,
                   );
-                  final user = FirebaseAuth.instance.currentUser;
-                  if (user?.emailVerified ?? false) {
+
+                  final user = AuthServices.firebase().currentUser;
+                  if (user?.isEmailVerified ?? false) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       notesRout,
                       (route) => false,
@@ -74,17 +76,14 @@ class _LoginViewState extends State<LoginView> {
                       (route) => false,
                     );
                   }
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'invalid-credential') {
-                    await showErrorDialog(
-                        context, 'email or password is incorrect');
-                  } else if (e.code == 'invalid-email') {
-                    await showErrorDialog(context, 'invalid email');
-                  } else {
-                    await showErrorDialog(context, '${e.message}');
-                  }
-                } catch (e) {
-                  await showErrorDialog(context, e.toString());
+                } on InvalidCredentialAuthException {
+                  await showErrorDialog(
+                      context, 'email or password is incorrect');
+                } on InvaidEmailAuthException {
+                  await showErrorDialog(context, 'invalid email');
+                } on GenericAuthException {
+                  await showErrorDialog(context,
+                      'An Error happend check networ our you cerdetial');
                 }
               },
               child: const Text('Login')),
