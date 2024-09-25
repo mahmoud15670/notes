@@ -44,58 +44,66 @@ class _LoginViewState extends State<LoginView> {
             enableSuggestions: false,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration:
-                const InputDecoration(hintText: 'Enter your email'),
+            decoration: const InputDecoration(hintText: 'Enter your email'),
           ),
           TextField(
             controller: _password,
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
-            decoration:
-                const InputDecoration(hintText: 'Enter your password'),
+            decoration: const InputDecoration(hintText: 'Enter your password'),
           ),
           TextButton(
               onPressed: () async {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: email, password: password);
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
                   final user = FirebaseAuth.instance.currentUser;
-                  if (user?.emailVerified ?? false){
-                    Navigator.of(context).pushNamedAndRemoveUntil(notesRout, (route) => false,);
-                  }else{
-                    Navigator.of(context).pushNamedAndRemoveUntil(verfiyRout, (route) => false,);
+                  if (user?.emailVerified ?? false) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      notesRout,
+                      (route) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      verfiyRout,
+                      (route) => false,
+                    );
                   }
                 } on FirebaseAuthException catch (e) {
-                  if (e.code == 'invalid-credential'){
-                    await showErrorDialog(context, 'email or password is incorrect');
-                  }else if (e.code == 'invalid-email') {
-                    await showErrorDialog(context, 'invalid email');      
-                  }else {
-                    await showErrorDialog(context, '${e.message}');      
+                  if (e.code == 'invalid-credential') {
+                    await showErrorDialog(
+                        context, 'email or password is incorrect');
+                  } else if (e.code == 'invalid-email') {
+                    await showErrorDialog(context, 'invalid email');
+                  } else {
+                    await showErrorDialog(context, '${e.message}');
                   }
-                }catch (e) {
-                  await showErrorDialog(context, e.toString());      
+                } catch (e) {
+                  await showErrorDialog(context, e.toString());
                 }
               },
               child: const Text('Login')),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("don't have account ?"),
-                  TextButton(
-                    onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(registerRout, (route) => false,);
-                    }, 
-                    child: const Text('signup !'))
-                ],
-              )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("don't have account ?"),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      registerRout,
+                      (route) => false,
+                    );
+                  },
+                  child: const Text('signup !'))
+            ],
+          )
         ],
       ),
     );
   }
-
 }
