@@ -5,6 +5,8 @@ class AuthServices implements AuthProvider {
   final AuthProvider provider;
   const AuthServices(this.provider);
 
+  // factory AuthServices.
+
   @override
   Future<AuthUser> createUser({
     required String email,
