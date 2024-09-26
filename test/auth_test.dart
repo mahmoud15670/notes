@@ -1,12 +1,17 @@
 import 'package:mynotes/services/auth/auth_provider.dart';
 import 'package:mynotes/services/auth/auth_user.dart';
 import 'package:test/test.dart';
-void main () {}
+
+void main() {}
 
 class MoukAuthProvider implements AuthProvider {
-  final <AuthUser;> user;
+  var _isInitialized = false;
+  
   @override
-  Future<AuthUser> createUser({required String email, required String password}) {
+  Future<AuthUser> createUser({
+    required String email,
+    required String password,
+  }) {
     // TODO: implement createUser
     throw UnimplementedError();
   }
@@ -22,7 +27,10 @@ class MoukAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<AuthUser> logIn({required String email, required String password}) {
+  Future<AuthUser> logIn({
+    required String email,
+    required String password,
+  }) {
     // TODO: implement logIn
     throw UnimplementedError();
   }
@@ -38,5 +46,4 @@ class MoukAuthProvider implements AuthProvider {
     // TODO: implement sendEmailVerification
     throw UnimplementedError();
   }
-
 }
