@@ -47,7 +47,9 @@ void main() {
       expect(provider.currentUser, user);
       expect(user.isEmailVerified, false);
     });
-    
+    test('logged user should be able to verified', () {
+      
+    })
   });
 }
 
