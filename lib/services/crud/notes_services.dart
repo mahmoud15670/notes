@@ -55,12 +55,20 @@ class NotesServices {
   // }
   Future<void> deleteUser({required String email}) async {
     final db = _getDataBaseOrThrow();
-    final user = await db
-        .query(userTable, limit: 1, where: 'email = ?', whereArgs: [email]);
+    final user = await db.query(
+      userTable,
+      limit: 1,
+      where: 'email = ?',
+      whereArgs: [email],
+    );
     if (user.isEmpty) {
       throw UserNotFoundException();
-    }else{
-      db.delete(userTable, where: 'email = ?', whereArgs: [email]);
+    } else {
+      db.delete(
+        userTable,
+        where: 'email = ?',
+        whereArgs: [email.toLowerCase()],
+      );
     }
   }
 }
