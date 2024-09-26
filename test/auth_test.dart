@@ -37,8 +37,9 @@ class MoukAuthProvider implements AuthProvider {
   Future<AuthUser> logIn({
     required String email,
     required String password,
-  }) {
-    // TODO: implement logIn
+  }) async {
+    if (!isInitialized) throw NotInitialized();
+    if (email == 'foo@bar.com') throw found
     throw UnimplementedError();
   }
 
