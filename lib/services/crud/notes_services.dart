@@ -7,6 +7,8 @@ class DataBaseAlradyOpenExption implements Exception {}
 
 class DataBaseNotOpenException implements Exception {}
 
+class UserNotFoundException implements Exception {}
+
 class UnAbleToGetDocumentsDirectoryExption implements Exception {}
 
 class NotesServices {
@@ -51,11 +53,14 @@ class NotesServices {
   //   final results = db.query(userTable,limit: 1,where: 'emai = ?', whereArgs: [email]);
   //   if (results.)
   // }
-  Future<void> deleteUser({required String email}) async{
+  Future<void> deleteUser({required String email}) async {
     final db = _getDataBaseOrThrow();
-    final user = await db.query(userTable, limit: 1, where: 'email = ?', whereArgs: [email]);
-    if (user.isEmpty){
-      throw userNotFoundException;
+    final user = await db
+        .query(userTable, limit: 1, where: 'email = ?', whereArgs: [email]);
+    if (user.isEmpty) {
+      throw UserNotFoundException();
+    }else{
+      db.delete(userTable, where: 'email = ?', whereArgs: [email]);
     }
   }
 }
