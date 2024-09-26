@@ -4,9 +4,12 @@ import 'package:test/test.dart';
 
 void main() {}
 
+class NotInitialized implements Exception{}
 class MoukAuthProvider implements AuthProvider {
   var _isInitialized = false;
-  bool get isInitialized = _in
+  bool get isInitialized => _isInitialized;
+
+
   
   @override
   Future<AuthUser> createUser({
