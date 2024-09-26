@@ -21,6 +21,8 @@ class DataBaseUser {
   String toString() {
     return 'userId = $id and his email = $email';
   }
+
+  @override bool operator ==(covariant DataBaseUser other) => id = other.id;
 }
 
 const idColumn = 'id';
