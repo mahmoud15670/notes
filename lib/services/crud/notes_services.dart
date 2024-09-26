@@ -55,13 +55,13 @@ class NotesServices {
   // }
   Future<void> deleteUser({required String email}) async {
     final db = _getDataBaseOrThrow();
-    
-    final deleteCount = db.delete(
+
+    final deletedCount = await db.delete(
       userTable,
       where: 'email = ?',
       whereArgs: [email.toLowerCase()],
-    );  
-    if (deleteCount != 1) throw CouldNotDeleteUserException();
+    );
+    if (deletedCount != 1) throw CouldNotDeleteUserException();
   }
 }
 
