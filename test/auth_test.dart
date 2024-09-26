@@ -59,7 +59,8 @@ class MoukAuthProvider implements AuthProvider {
   @override
   Future<void> sendEmailVerification() {
     if (!isInitialized) throw NotInitialized();
-    
+    final user = _user;
+    if (user == null) throw UserNotLoggedInAuthException();
     throw UnimplementedError();
   }
 }
