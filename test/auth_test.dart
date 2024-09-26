@@ -28,7 +28,6 @@ void main() {
       timeout: const Timeout(Duration(seconds: 2)),
     );
     test('create user should to deligate to login ', () async {
-      await provider.initialize();
       final badEmailUser = provider.createUser(
         email: 'foo@bar.com',
         password: 'password',
@@ -101,8 +100,8 @@ class MoukAuthProvider implements AuthProvider {
     required String password,
   }) async {
     if (!isInitialized) throw NotInitializedException();
-    if (email == 'foo@bar.com') throw InvalidCredentialAuthException;
-    if (password == '123') throw InvalidCredentialAuthException;
+    if (email == 'foo@bar.com') throw InvalidCredentialAuthException();
+    if (password == '123') throw InvalidCredentialAuthException();
     const user = AuthUser(isEmailVerified: false);
     _user = user;
     return Future.value(user);
