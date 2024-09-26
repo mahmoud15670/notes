@@ -17,6 +17,8 @@ class NotesServices {
       final dbPath = join(docsPath.path,dbName);
       final db = await openDatabase(dbPath);
       _db = db;
+
+      db.execute()
     } on MissingPlatformDirectoryException {
       throw UnAbleToGetDocumentsDirectoryExption();
     }
@@ -82,3 +84,13 @@ const idColumn = 'id';
 const emailColumn = 'email';
 const userIdColumn = 'user_id';
 const textColumn = 'text';
+const createUserTable = '''
+CREATE TABLE "user" (
+	"id"	INTEGER NOT NULL,
+	"email"	TEXT NOT NULL UNIQUE,
+	PRIMARY KEY("id")
+);
+''';
+const createNoteTable = '''
+
+''';
