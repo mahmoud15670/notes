@@ -23,6 +23,10 @@ class DataBaseUser {
   }
 
   @override bool operator ==(covariant DataBaseUser other) => id == other.id;
+  
+  @override
+  int get hashCode => id.hashCode;  
+  
 }
 
 const idColumn = 'id';
