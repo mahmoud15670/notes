@@ -47,12 +47,23 @@ class NotesServices {
       _db = null;
     }
   }
-  // Future<DataBaseUser> createUser({required String email}) async {
-  //   final db = await _getDataBaseOrThrow();
 
-  //   final results = db.query(userTable,limit: 1,where: 'emai = ?', whereArgs: [email]);
-  //   if (results.)
-  // }
+  Future<DataBaseUser> createUser({required String email}) async {
+    final db = _getDataBaseOrThrow();
+
+    final results = await db.query(
+      userTable,
+      limit: 1,
+      where: 'emai = ?',
+      whereArgs: [email.toLowerCase()],
+    );
+    if (results.isNotEmpty) throw UserAlradyExsitsException();
+      db.insert(userTable, {
+        emailColumn:email.toLowerCase()
+      });
+    return DataBaseUser(id: id, email: email);
+  }
+
   Future<void> deleteUser({required String email}) async {
     final db = _getDataBaseOrThrow();
 
@@ -64,6 +75,8 @@ class NotesServices {
     if (deletedCount != 1) throw CouldNotDeleteUserException();
   }
 }
+
+class UserAlradyExsitsException implements Exception {}
 
 @immutable
 class DataBaseUser {
