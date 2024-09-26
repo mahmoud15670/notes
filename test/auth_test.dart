@@ -29,11 +29,11 @@ void main() {
     );
     test('create user should to deligate to login ', () async {
       await provider.initialize();
-      final badEmailUser = provider.createUser(
+      
+      expect(await provider.createUser(
         email: 'foo@bar.com',
         password: 'password',
-      );
-      expect(badEmailUser,
+      ),
           throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
       final badPasswordUser = provider.createUser(
         email: 'foo.com',
