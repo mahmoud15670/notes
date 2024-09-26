@@ -3,7 +3,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
 
-class DataBaseAlradyOpendExption implements Exception {}
+class DataBaseAlradyOpenExption implements Exception {}
+
+class DataBaseNotOpenException implements Exception {}
 
 class UnAbleToGetDocumentsDirectoryExption implements Exception {}
 
@@ -11,7 +13,7 @@ class NotesServices {
   Database? _db;
   Future<void> open() async {
     if (_db != null) {
-      throw DataBaseAlradyOpendExption();
+      throw DataBaseAlradyOpenExption();
     }
     try {
       final docsPath = await getApplicationDocumentsDirectory();
@@ -22,6 +24,16 @@ class NotesServices {
       await db.execute(createNoteTable);
     } on MissingPlatformDirectoryException {
       throw UnAbleToGetDocumentsDirectoryExption();
+    }
+  }
+
+  Future<void> close() async {
+    final db=_db;
+    if (db == null) {
+      throw DataBaseNotOpenException();
+    }else{
+      await db.close();
+      _db=null;
     }
   }
 }
