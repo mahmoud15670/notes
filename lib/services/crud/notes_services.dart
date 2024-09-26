@@ -11,14 +11,15 @@ class UnAbleToGetDocumentsDirectoryExption implements Exception {}
 
 class NotesServices {
   Database? _db;
-  Database _getDataBaseOrThrow(){
+  Database _getDataBaseOrThrow() {
     final db = _db;
-    if (db == null){
+    if (db == null) {
       throw DataBaseNotOpenException();
-    }else{
-    return db;
+    } else {
+      return db;
     }
   }
+
   Future<void> open() async {
     if (_db != null) {
       throw DataBaseAlradyOpenExption();
@@ -36,14 +37,21 @@ class NotesServices {
   }
 
   Future<void> close() async {
-    final db=_db;
+    final db = _db;
     if (db == null) {
       throw DataBaseNotOpenException();
-    }else{
+    } else {
       await db.close();
-      _db=null;
+      _db = null;
     }
   }
+  // Future<DataBaseUser> createUser({required String email}) async {
+  //   final db = await _getDataBaseOrThrow();
+
+  //   final results = db.query(userTable,limit: 1,where: 'emai = ?', whereArgs: [email]);
+  //   if (results.)
+  // }
+  Future<void> delete
 }
 
 @immutable
