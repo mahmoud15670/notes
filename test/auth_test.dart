@@ -47,6 +47,7 @@ void main() {
       expect(provider.currentUser, user);
       expect(user.isEmailVerified, false);
     });
+    
   });
 }
 
