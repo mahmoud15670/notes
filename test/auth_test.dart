@@ -28,7 +28,7 @@ void main() {
       timeout: const Timeout(Duration(seconds: 2)),
     );
     test('create user should to deligate to login ', () async {
-      
+      await provider.initialize();
       final badEmailUser = provider.createUser(
         email: 'foo@bar.com',
         password: 'password',
@@ -37,7 +37,7 @@ void main() {
           throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
       final badPasswordUser = provider.createUser(
         email: 'foo.com',
-        password: 'foobar',
+        password: '123',
       );
       expect(badPasswordUser,
           throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
