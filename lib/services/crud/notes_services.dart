@@ -11,6 +11,11 @@ class UnAbleToGetDocumentsDirectoryExption implements Exception {}
 
 class NotesServices {
   Database? _db;
+  Database _getDataBaseOrThrow(){
+    final db = _db;
+    if (db == null) throw DataBaseNotOpenException();
+    return db;
+  }
   Future<void> open() async {
     if (_db != null) {
       throw DataBaseAlradyOpenExption();
