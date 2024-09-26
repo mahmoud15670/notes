@@ -22,17 +22,41 @@ class DataBaseUser {
     return 'userId = $id and his email = $email';
   }
 
-  @override bool operator ==(covariant DataBaseUser other) => id == other.id;
-  
   @override
-  int get hashCode => id.hashCode;  
-  
+  bool operator ==(covariant DataBaseUser other) => id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
 
 class DataBaseNote {
   final int id;
   final int userId;
-  final String;
+  final String text;
+
+  DataBaseNote(
+    this.id,
+    this.userId,
+    this.text,
+  );
+
+  DataBaseNote.fromRow(Map<String, Object?> map)
+      : id = map[idColumn] as int,
+        userId = map[userIdColumn] as int,
+        text = map[textColumn] as String;
+  @override
+  String toString() {
+    return 'note id = $id and user id = $userId';
+  }
+
+  @override
+  bool operator ==(covariant DataBaseNote other) => id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
+
 const idColumn = 'id';
 const emailColumn = 'email';
+const userIdColumn = 'user_id';
+const textColumn = 'text';
