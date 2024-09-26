@@ -18,7 +18,8 @@ class NotesServices {
       final db = await openDatabase(dbPath);
       _db = db;
 
-      db.execute()
+      await db.execute(createUserTable);
+      await db.execute(createNoteTable);
     } on MissingPlatformDirectoryException {
       throw UnAbleToGetDocumentsDirectoryExption();
     }
@@ -85,12 +86,18 @@ const emailColumn = 'email';
 const userIdColumn = 'user_id';
 const textColumn = 'text';
 const createUserTable = '''
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS "user" (
 	"id"	INTEGER NOT NULL,
 	"email"	TEXT NOT NULL UNIQUE,
 	PRIMARY KEY("id")
 );
 ''';
 const createNoteTable = '''
-
+CREATE TABLE IF NOT EXISTS "notes" (
+	"id"	INTEGER NOT NULL,
+	"user_id"	INTEGER NOT NULL,
+	"text"	TEXT NOT NULL,
+	PRIMARY KEY("id"),
+	FOREIGN KEY("user_id") REFERENCES "user"("id")
+);
 ''';
