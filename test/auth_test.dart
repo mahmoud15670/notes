@@ -32,6 +32,8 @@ void main() {
         email: 'foo@bar.com',
         password: 'password',
       );
+      expect(badEmailUser,
+          throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
     });
   });
 }
