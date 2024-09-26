@@ -9,7 +9,7 @@ class NotInitialized implements Exception {}
 class MoukAuthProvider implements AuthProvider {
   var _isInitialized = false;
   bool get isInitialized => _isInitialized;
-  AuthUser? user;
+  AuthUser? _user;
 
   @override
   Future<AuthUser> createUser({
@@ -25,12 +25,12 @@ class MoukAuthProvider implements AuthProvider {
   }
 
   @override
-  AuthUser? get currentUser => throw UnimplementedError();
+  AuthUser? get currentUser => _user;
 
   @override
-  Future<void> initialize() {
-    // TODO: implement initialize
-    throw UnimplementedError();
+  Future<void> initialize() async {
+    await Future.delayed(const Duration(seconds: 1));
+    _isInitialized = true;
   }
 
   @override
