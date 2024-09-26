@@ -4,20 +4,23 @@ import 'package:test/test.dart';
 
 void main() {}
 
-class NotInitialized implements Exception{}
+class NotInitialized implements Exception {}
+
 class MoukAuthProvider implements AuthProvider {
   var _isInitialized = false;
   bool get isInitialized => _isInitialized;
 
-
-  
   @override
   Future<AuthUser> createUser({
     required String email,
     required String password,
-  }) {
-    // TODO: implement createUser
-    throw UnimplementedError();
+  }) async {
+    if (!isInitialized) throw NotInitialized();
+    await Future.delayed(const Duration(seconds: 1));
+    return logIn(
+      email: email,
+      password: password,
+    );
   }
 
   @override
