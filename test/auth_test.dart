@@ -10,7 +10,8 @@ void main() {
       expect(provider.isInitialized, false);
     });
     test('not allow to log out if not initialzed', () {
-      expect(provider.logOut(), throwsA(const TypeMatcher<NotInitializedException>()));
+      expect(provider.logOut(),
+          throwsA(const TypeMatcher<NotInitializedException>()));
     });
     test('should be able to be initilaized', () async {
       await provider.initialize();
