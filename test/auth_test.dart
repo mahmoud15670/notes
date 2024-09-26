@@ -28,7 +28,8 @@ void main() {
       timeout: const Timeout(Duration(seconds: 2)),
     );
     test('create user should to deligate to login ', () async {
-      final badEmailUser = provider.createUser(
+      await provider.initialize();
+      final badEmailUser = await provider.createUser(
         email: 'foo@bar.com',
         password: 'password',
       );
