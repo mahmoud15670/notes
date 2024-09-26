@@ -6,10 +6,16 @@ import 'package:test/test.dart';
 void main() {
   group('mouk authinticaion', () {
     final provider = MoukAuthProvider();
-    test('provider should not iitialized', (){
+    test('provider should not iitialized', () {
       expect(provider.isInitialized, false);
     });
-    test('not allow to log out withou', body);
+    test('not allow to log out if not initialzed', () {
+      expect(provider.logOut(),
+          throwsA(const TypeMatcher<NotInitialized>()));
+    });
+    test('should be able to be initilaized', (){
+      
+    });
   });
 }
 
