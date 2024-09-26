@@ -49,7 +49,9 @@ void main() {
     });
     test('logged user should be able to verified', () {
       provider.sendEmailVerification();
-      
+      final user = provider.currentUser;
+      expect(user, isNotNull);
+      expect(user!.isEmailVerified, true);
     });
   });
 }
