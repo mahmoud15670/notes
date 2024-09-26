@@ -29,7 +29,7 @@ void main() {
     );
     test('create user should to deligate to login ', () async {
       await provider.initialize();
-      final badEmailUser = await provider.createUser(
+      final badEmailUser = provider.createUser(
         email: 'foo@bar.com',
         password: 'password',
       );
