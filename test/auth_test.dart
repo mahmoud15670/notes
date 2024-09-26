@@ -9,7 +9,7 @@ void main() {
     test('provider should not iitialized', (){
       expect(provider.isInitialized, false);
     });
-    
+    test('not allow to log out withou', body);
   });
 }
 
