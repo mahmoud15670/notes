@@ -10,7 +10,7 @@ void main() {
       expect(provider.isInitialized, false);
     });
     test('not allow to log out if not initialzed', () {
-      expect(provider.logOut(), throwsA(const TypeMatcher<NotInitialized>()));
+      expect(provider.logOut(), throwsA(const TypeMatcher<NotInitializedException>()));
     });
     test('should be able to be initilaized', () async {
       await provider.initialize();
@@ -66,7 +66,7 @@ void main() {
   });
 }
 
-class NotInitialized implements Exception {}
+class NotInitializedException implements Exception {}
 
 class MoukAuthProvider implements AuthProvider {
   var _isInitialized = false;
@@ -78,7 +78,7 @@ class MoukAuthProvider implements AuthProvider {
     required String email,
     required String password,
   }) async {
-    if (!isInitialized) throw NotInitialized();
+    if (!isInitialized) throw NotInitializedException();
     await Future.delayed(const Duration(seconds: 1));
     return logIn(
       email: email,
@@ -100,9 +100,9 @@ class MoukAuthProvider implements AuthProvider {
     required String email,
     required String password,
   }) async {
-    if (!isInitialized) throw NotInitialized();
+    if (!isInitialized) throw NotInitializedException();
     if (email == 'foo@bar.com') throw InvalidCredentialAuthException;
-    if (password == 'foobar') throw InvalidCredentialAuthException;
+    if (password == '123') throw InvalidCredentialAuthException;
     const user = AuthUser(isEmailVerified: false);
     _user = user;
     return Future.value(user);
@@ -110,7 +110,7 @@ class MoukAuthProvider implements AuthProvider {
 
   @override
   Future<void> logOut() async {
-    if (!isInitialized) throw NotInitialized();
+    if (!isInitialized) throw NotInitializedException();
     if (_user == null) throw UserNotLoggedInAuthException();
     await Future.delayed(const Duration(seconds: 1));
     _user = null;
@@ -118,7 +118,7 @@ class MoukAuthProvider implements AuthProvider {
 
   @override
   Future<void> sendEmailVerification() async {
-    if (!isInitialized) throw NotInitialized();
+    if (!isInitialized) throw NotInitializedException();
     final user = _user;
     if (user == null) throw UserNotLoggedInAuthException();
     const newUser = AuthUser(isEmailVerified: true);
