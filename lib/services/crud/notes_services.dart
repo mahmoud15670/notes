@@ -60,6 +60,9 @@ class NotesServices {
     if (results.isNotEmpty) throw UserAlradyExsitsException();
     final userId =
         await db.insert(userTable, {emailColumn: email.toLowerCase()});
+    if (userId == 0){
+      throw UserCouldNotCreate
+    }
     return DataBaseUser(id: userId, email: email);
   }
 
