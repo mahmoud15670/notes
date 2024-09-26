@@ -3,7 +3,15 @@ import 'package:mynotes/services/auth/auth_provider.dart';
 import 'package:mynotes/services/auth/auth_user.dart';
 import 'package:test/test.dart';
 
-void main() {}
+void main() {
+  group('mouk authinticaion', () {
+    final provider = MoukAuthProvider();
+    test('provider should not iitialized', (){
+      expect(provider.isInitialized, false);
+    });
+    
+  });
+}
 
 class NotInitialized implements Exception {}
 
@@ -42,14 +50,13 @@ class MoukAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitialized();
     if (email == 'foo@bar.com') throw InvalidCredentialAuthException;
     if (password == 'foobar') throw InvalidCredentialAuthException;
-    const user = AuthUser(isEmailVerified:false);
+    const user = AuthUser(isEmailVerified: false);
     _user = user;
     return Future.value(user);
-
   }
 
   @override
-  Future<void> logOut()async {
+  Future<void> logOut() async {
     if (!isInitialized) throw NotInitialized();
     if (_user == null) throw UserNotLoggedInAuthException();
     await Future.delayed(const Duration(seconds: 1));
@@ -57,11 +64,11 @@ class MoukAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<void> sendEmailVerification() {
+  Future<void> sendEmailVerification() async {
     if (!isInitialized) throw NotInitialized();
     final user = _user;
     if (user == null) throw UserNotLoggedInAuthException();
     const newUser = AuthUser(isEmailVerified: true);
-    throw UnimplementedError();
+    _user = newUser;
   }
 }
