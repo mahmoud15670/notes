@@ -6,6 +6,7 @@ void main() {}
 
 class MoukAuthProvider implements AuthProvider {
   var _isInitialized = false;
+  bool get isInitialized = _in
   
   @override
   Future<AuthUser> createUser({
