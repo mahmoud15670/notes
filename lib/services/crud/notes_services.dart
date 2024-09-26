@@ -58,12 +58,26 @@ class NotesServices {
       whereArgs: [email.toLowerCase()],
     );
     if (results.isNotEmpty) throw UserAlradyExsitsException();
-    final userId =
-        await db.insert(userTable, {emailColumn: email.toLowerCase()});
-    if (userId == 0){
-      throw UserCouldNotCreate
-    }
-    return DataBaseUser(id: userId, email: email);
+    final userId = await db.insert(
+      userTable,
+      {emailColumn: email.toLowerCase()},
+    );
+    return DataBaseUser(
+      id: userId,
+      email: email,
+    );
+  }
+
+  Future<DataBaseUser> getUser({required String email}) async {
+    final db = _getDataBaseOrThrow();
+    final users = await db.query(
+      userTable,
+      limit: 1,
+      where: 'email= ?',
+      whereArgs: [email.toLowerCase()],
+    );
+    if (users.isEmpty) throw UserNotFound();
+    return DataBaseUser.fromRow(users.first);
   }
 
   Future<void> deleteUser({required String email}) async {
@@ -77,6 +91,8 @@ class NotesServices {
     if (deletedCount != 1) throw CouldNotDeleteUserException();
   }
 }
+
+class UserNotFound implements Exception {}
 
 class UserAlradyExsitsException implements Exception {}
 
