@@ -40,7 +40,11 @@ void main() {
       );
       expect(badPasswordUser,
           throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
-      
+      final user = await provider.createUser(
+        email: 'email',
+        password: 'password',
+      );
+      expect(provider.currentUser, user);
     });
   });
 }
