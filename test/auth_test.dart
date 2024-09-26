@@ -17,9 +17,13 @@ void main() {
       await provider.initialize();
       expect(provider.isInitialized, true);
     });
-    test('test user should be null after initialzaion', (){
+    test('user should be null after initialzaion', (){
       expect(provider.currentUser, null);
     });
+    test('should be aable to initilaixed in less than 2 sec', () async {
+      await provider.initialize();
+      expect(provider.isInitialized, true);
+    }, timeout: );
   });
 }
 
