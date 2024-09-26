@@ -13,8 +13,11 @@ class NotesServices {
   Database? _db;
   Database _getDataBaseOrThrow(){
     final db = _db;
-    if (db == null) throw DataBaseNotOpenException();
+    if (db == null){
+      throw DataBaseNotOpenException();
+    }else{
     return db;
+    }
   }
   Future<void> open() async {
     if (_db != null) {
