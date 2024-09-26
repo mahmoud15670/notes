@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
 
 class NotesServices {
+  Database? _db;
   Future<void>open() async{
     final appPath = getApplicationDocumentsDirectory();
   }
