@@ -4,7 +4,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
 
 class NotesServices {
-  Future<void>open
+  Future<void>open() async{
+    final appPath = getApplicationDocumentsDirectory();
+  }
 }
 @immutable
 class DataBaseUser {
