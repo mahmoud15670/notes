@@ -3,21 +3,21 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
 
-class DataBaseAlradyOpendExption implements Exception{}
-class UnAbleToGetDocumentsDirectoryExption implements Exception{}
+class DataBaseAlradyOpendExption implements Exception {}
+
+class UnAbleToGetDocumentsDirectoryExption implements Exception {}
+
 class NotesServices {
   Database? _db;
-  Future<void>open() async{
-
+  Future<void> open() async {
     if (_db != null) {
       throw DataBaseAlradyOpendExption();
     }
-    try{
+    try {
       final docsPath = await getApplicationDocumentsDirectory();
-      final dbPath = join(docsPath.path,dbName);
+      final dbPath = join(docsPath.path, dbName);
       final db = await openDatabase(dbPath);
       _db = db;
-
       await db.execute(createUserTable);
       await db.execute(createNoteTable);
     } on MissingPlatformDirectoryException {
@@ -25,6 +25,7 @@ class NotesServices {
     }
   }
 }
+
 @immutable
 class DataBaseUser {
   final int id;
@@ -89,15 +90,15 @@ const createUserTable = '''
 CREATE TABLE IF NOT EXISTS "user" (
 	"id"	INTEGER NOT NULL,
 	"email"	TEXT NOT NULL UNIQUE,
-	PRIMARY KEY("id")
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 ''';
 const createNoteTable = '''
-CREATE TABLE IF NOT EXISTS "notes" (
+CREATE TABLE IF NOT EXISTS "note" (
 	"id"	INTEGER NOT NULL,
 	"user_id"	INTEGER NOT NULL,
-	"text"	TEXT NOT NULL,
-	PRIMARY KEY("id"),
+	"text"	TEXT ,
+	PRIMARY KEY("id" AUTOINCREMENT),
 	FOREIGN KEY("user_id") REFERENCES "user"("id")
 );
 ''';
