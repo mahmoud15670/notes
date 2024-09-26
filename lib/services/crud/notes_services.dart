@@ -29,5 +29,10 @@ class DataBaseUser {
   
 }
 
+class DataBaseNote {
+  final int id;
+  final int userId;
+  final String;
+}
 const idColumn = 'id';
 const emailColumn = 'email';
