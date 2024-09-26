@@ -32,7 +32,6 @@ void main() {
         email: 'foo@bar.com',
         password: 'password',
       );
-      print(badEmailUser);
       expect(badEmailUser,
           throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
       final badPasswordUser = provider.createUser(
