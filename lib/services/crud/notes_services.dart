@@ -58,10 +58,9 @@ class NotesServices {
       whereArgs: [email.toLowerCase()],
     );
     if (results.isNotEmpty) throw UserAlradyExsitsException();
-      db.insert(userTable, {
-        emailColumn:email.toLowerCase()
-      });
-    return DataBaseUser(id: id, email: email);
+    final userId =
+        await db.insert(userTable, {emailColumn: email.toLowerCase()});
+    return DataBaseUser(id: userId, email: email);
   }
 
   Future<void> deleteUser({required String email}) async {
