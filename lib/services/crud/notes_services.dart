@@ -22,7 +22,7 @@ class DataBaseUser {
     return 'userId = $id and his email = $email';
   }
 
-  @override bool operator ==(covariant DataBaseUser other) => id = other.id;
+  @override bool operator ==(covariant DataBaseUser other) => id == other.id;
 }
 
 const idColumn = 'id';
