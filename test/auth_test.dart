@@ -53,6 +53,15 @@ void main() {
       expect(user, isNotNull);
       expect(user!.isEmailVerified, true);
     });
+    test('login and logout', () async {
+      await provider.logOut();
+      await provider.logIn(
+        email: 'email',
+        password: 'password',
+      );
+      final user = provider.currentUser;
+      expect(user, isNotNull);
+    });
   });
 }
 
