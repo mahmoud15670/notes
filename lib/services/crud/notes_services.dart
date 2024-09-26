@@ -76,8 +76,11 @@ class NotesServices {
       where: 'email= ?',
       whereArgs: [email.toLowerCase()],
     );
-    if (users.isEmpty) throw UserNotFound();
-    return DataBaseUser.fromRow(users.first);
+    if (users.isEmpty) {
+      throw CouldNotFindUserException();
+    } else {
+      return DataBaseUser.fromRow(users.first);
+    }
   }
 
   Future<void> deleteUser({required String email}) async {
@@ -90,9 +93,19 @@ class NotesServices {
     );
     if (deletedCount != 1) throw CouldNotDeleteUserException();
   }
+
+  Future<DataBaseNote> createNote({required DataBaseUser owner}) async {
+    final db = _getDataBaseOrThrow();
+    final user = await getUser(email: owner.email);
+    final noteId = await db.insert(noteTable, {
+      userIdColumn: user.id,
+      textColumn: '',
+    });
+    return DataBaseNote(noteId, user.id, '');
+  }
 }
 
-class UserNotFound implements Exception {}
+class CouldNotFindUserException implements Exception {}
 
 class UserAlradyExsitsException implements Exception {}
 
