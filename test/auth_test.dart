@@ -61,6 +61,7 @@ class MoukAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitialized();
     final user = _user;
     if (user == null) throw UserNotLoggedInAuthException();
+    const newUser = AuthUser(isEmailVerified: true);
     throw UnimplementedError();
   }
 }
