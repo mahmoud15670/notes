@@ -56,6 +56,9 @@ class DataBaseNote {
   int get hashCode => id.hashCode;
 }
 
+const dbName = 'notes.db';
+const userTable = 'user';
+const noteTable = 'note';
 const idColumn = 'id';
 const emailColumn = 'email';
 const userIdColumn = 'user_id';
