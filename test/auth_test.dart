@@ -53,13 +53,13 @@ class MoukAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitialized();
     if (_user == null) throw UserNotLoggedInAuthException();
     await Future.delayed(const Duration(seconds: 1));
-    
-    throw UnimplementedError();
+    _user = null;
   }
 
   @override
   Future<void> sendEmailVerification() {
-    // TODO: implement sendEmailVerification
+    if (!isInitialized) throw NotInitialized();
+    
     throw UnimplementedError();
   }
 }
