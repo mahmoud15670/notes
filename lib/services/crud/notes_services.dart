@@ -51,7 +51,13 @@ class NotesServices {
   //   final results = db.query(userTable,limit: 1,where: 'emai = ?', whereArgs: [email]);
   //   if (results.)
   // }
-  Future<void> delete
+  Future<void> deleteUser({required String email}) async{
+    final db = _getDataBaseOrThrow();
+    final user = await db.query(userTable, limit: 1, where: 'email = ?', whereArgs: [email]);
+    if (user.isEmpty){
+      throw userNotFoundException;
+    }
+  }
 }
 
 @immutable
