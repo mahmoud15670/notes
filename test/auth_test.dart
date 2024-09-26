@@ -34,6 +34,13 @@ void main() {
       );
       expect(badEmailUser,
           throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
+      final badPasswordUser = provider.createUser(
+        email: 'foo.com',
+        password: 'foobar',
+      );
+      expect(badPasswordUser,
+          throwsA(const TypeMatcher<InvalidCredentialAuthException>()));
+      
     });
   });
 }
