@@ -3,6 +3,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
 
+class NotesServices {
+  Future<void>open
+}
 @immutable
 class DataBaseUser {
   final int id;
