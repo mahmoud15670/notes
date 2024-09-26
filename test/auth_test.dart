@@ -10,20 +10,29 @@ void main() {
       expect(provider.isInitialized, false);
     });
     test('not allow to log out if not initialzed', () {
-      expect(provider.logOut(),
-          throwsA(const TypeMatcher<NotInitialized>()));
+      expect(provider.logOut(), throwsA(const TypeMatcher<NotInitialized>()));
     });
     test('should be able to be initilaized', () async {
       await provider.initialize();
       expect(provider.isInitialized, true);
     });
-    test('user should be null after initialzaion', (){
+    test('user should be null after initialzaion', () {
       expect(provider.currentUser, null);
     });
-    test('should be aable to initilaixed in less than 2 sec', () async {
-      await provider.initialize();
-      expect(provider.isInitialized, true);
-    }, timeout: );
+    test(
+      'should be aable to initilaized in less than 2 sec',
+      () async {
+        await provider.initialize();
+        expect(provider.isInitialized, true);
+      },
+      timeout: const Timeout(Duration(seconds: 2)),
+    );
+    test('create user should to deligate to login ', () async {
+      final badEmailUser = provider.createUser(
+        email: 'foo@bar.com',
+        password: 'password',
+      );
+    });
   });
 }
 
