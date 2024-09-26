@@ -3,10 +3,21 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
 
+class DataBaseAlradyOpendExption implements Exception{}
+class UnAbleToGetDocumentsDirectoryExption implements Exception{}
 class NotesServices {
   Database? _db;
   Future<void>open() async{
-    final appPath = getApplicationDocumentsDirectory();
+
+    if (_db != null) {
+      throw DataBaseAlradyOpendExption();
+    }
+    try{
+      final docsPath = await getApplicationDocumentsDirectory();
+      final dbPath = join(docsPath.path,dbName);
+    } on MissingPlatformDirectoryException {
+      throw UnAbleToGetDocumentsDirectoryExption();
+    }
   }
 }
 @immutable
