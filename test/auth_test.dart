@@ -13,8 +13,12 @@ void main() {
       expect(provider.logOut(),
           throwsA(const TypeMatcher<NotInitialized>()));
     });
-    test('should be able to be initilaized', (){
-      
+    test('should be able to be initilaized', () async {
+      await provider.initialize();
+      expect(provider.isInitialized, true);
+    });
+    test('test user should be null after initialzaion', (){
+      expect(provider.currentUser, null);
     });
   });
 }
