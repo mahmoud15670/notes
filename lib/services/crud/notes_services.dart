@@ -120,13 +120,21 @@ class NotesServices {
     );
     if (deletedCount == 0) throw CouldNotDeleteNoteExciption();
   }
-  Future<int> deleteAllNotes() async{
+
+  Future<int> deleteAllNotes() async {
     final db = _getDataBaseOrThrow();
     return await db.delete(noteTable);
+  }
 
-
+  Future<DataBaseNote> getNote({required int id}) async {
+    final db = _getDataBaseOrThrow();
+    final notes = await db.query(noteTable, where: 'id = ?', whereArgs: [id]);
+    if (notes.isEmpty) throw CouldNotFindNote();
+    return DataBaseNote.fromRow(notes.first);
   }
 }
+
+class CouldNotFindNote implements Exception {}
 
 @immutable
 class DataBaseUser {
