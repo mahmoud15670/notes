@@ -104,7 +104,18 @@ class NotesServices {
     });
     return DataBaseNote(noteId, owner.id, '');
   }
+
+  Future<void> deleteNote({required int id}) async {
+    final db = _getDataBaseOrThrow();
+    final deletedCount =
+        await db.delete(noteTable, where: 'id= ?', whereArgs: [id]);
+    if (deletedCount != 1) {
+      throw CouldNotDeleteNote();
+    }
+  }
 }
+
+class CouldNotDeleteNote implements Exception {}
 
 class CouldNotFindUserException implements Exception {}
 
