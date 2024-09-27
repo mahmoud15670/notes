@@ -128,7 +128,12 @@ class NotesServices {
 
   Future<DataBaseNote> getNote({required int id}) async {
     final db = _getDataBaseOrThrow();
-    final notes = await db.query(noteTable, where: 'id = ?', whereArgs: [id]);
+    final notes = await db.query(
+      noteTable,
+      limit: 1,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
     if (notes.isEmpty) throw CouldNotFindNote();
     return DataBaseNote.fromRow(notes.first);
   }
