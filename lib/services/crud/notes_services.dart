@@ -120,6 +120,12 @@ class NotesServices {
     );
     if (deletedCount == 0) throw CouldNotDeleteNoteExciption();
   }
+  Future<int> deleteAllNotes() async{
+    final db = _getDataBaseOrThrow();
+    return await db.delete(noteTable);
+
+
+  }
 }
 
 @immutable
