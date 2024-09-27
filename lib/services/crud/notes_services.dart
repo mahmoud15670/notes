@@ -7,7 +7,13 @@ class DataBaseAlradyOpenExption implements Exception {}
 
 class DataBaseNotOpenException implements Exception {}
 
+class UserAlradyExsitsException implements Exception {}
+
+class CouldNotFindUserException implements Exception {}
+
 class CouldNotDeleteUserException implements Exception {}
+
+class CouldNotDeleteNoteExciption implements Exception {}
 
 class UnAbleToGetDocumentsDirectoryExption implements Exception {}
 
@@ -115,12 +121,6 @@ class NotesServices {
     if (deletedCount == 0) throw CouldNotDeleteNoteExciption();
   }
 }
-
-class CouldNotDeleteNoteExciption implements Exception {}
-
-class CouldNotFindUserException implements Exception {}
-
-class UserAlradyExsitsException implements Exception {}
 
 @immutable
 class DataBaseUser {
