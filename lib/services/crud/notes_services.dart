@@ -111,6 +111,24 @@ class NotesServices {
     return DataBaseNote(noteId, owner.id, '');
   }
 
+  Future<DataBaseNote> getNote({required int id}) async {
+    final db = _getDataBaseOrThrow();
+    final notes = await db.query(
+      noteTable,
+      limit: 1,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (notes.isEmpty) throw CouldNotFindNote();
+    return DataBaseNote.fromRow(notes.first);
+  }
+
+  Future<Iterable<DataBaseNote>> getAlllNotes() async {
+    final db = _getDataBaseOrThrow();
+    final notes = await db.query(noteTable);
+    return notes.map((noteRow) => DataBaseNote.fromRow(noteRow));
+  }
+
   Future<void> deleteNote({required int id}) async {
     final db = _getDataBaseOrThrow();
     final deletedCount = await db.delete(
@@ -124,18 +142,6 @@ class NotesServices {
   Future<int> deleteAllNotes() async {
     final db = _getDataBaseOrThrow();
     return await db.delete(noteTable);
-  }
-
-  Future<DataBaseNote> getNote({required int id}) async {
-    final db = _getDataBaseOrThrow();
-    final notes = await db.query(
-      noteTable,
-      limit: 1,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    if (notes.isEmpty) throw CouldNotFindNote();
-    return DataBaseNote.fromRow(notes.first);
   }
 }
 
