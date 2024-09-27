@@ -102,7 +102,7 @@ class NotesServices {
       userIdColumn: owner.id,
       textColumn: '',
     });
-    return DataBaseNote(noteId, user.id, '');
+    return DataBaseNote(noteId, owner.id, '');
   }
 }
 
