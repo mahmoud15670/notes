@@ -129,6 +129,17 @@ class NotesServices {
     return notes.map((noteRow) => DataBaseNote.fromRow(noteRow));
   }
 
+  Future<DataBaseNote> updateNote({
+    required DataBaseNote note,
+    required String text,
+  }) async {
+    final db = _getDataBaseOrThrow();
+    await getNote(id: note.id);
+    final updateCount = await db.update(noteTable, {textColumn: text});
+    if (updateCount == 0) throw CouldNotUpdateNote();
+    return await getNote(id: note.id);
+  }
+
   Future<void> deleteNote({required int id}) async {
     final db = _getDataBaseOrThrow();
     final deletedCount = await db.delete(
@@ -144,6 +155,8 @@ class NotesServices {
     return await db.delete(noteTable);
   }
 }
+
+class CouldNotUpdateNote implements Exception {}
 
 class CouldNotFindNote implements Exception {}
 
