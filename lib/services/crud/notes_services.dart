@@ -1,21 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:mynotes/services/crud/crud_exceptions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
 
-class DataBaseAlradyOpenExption implements Exception {}
-
-class DataBaseNotOpenException implements Exception {}
-
-class UserAlradyExsitsException implements Exception {}
-
-class CouldNotFindUserException implements Exception {}
-
-class CouldNotDeleteUserException implements Exception {}
-
-class CouldNotDeleteNoteExciption implements Exception {}
-
-class UnAbleToGetDocumentsDirectoryExption implements Exception {}
 
 class NotesServices {
   Database? _db;
@@ -155,10 +143,6 @@ class NotesServices {
     return await db.delete(noteTable);
   }
 }
-
-class CouldNotUpdateNote implements Exception {}
-
-class CouldNotFindNote implements Exception {}
 
 @immutable
 class DataBaseUser {
