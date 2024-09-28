@@ -11,6 +11,11 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
+
+  String get userEmail =void name(params) {
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
