@@ -10,8 +10,10 @@ class NotesServices {
   Database? _db;
   List<DataBaseNote> _notes = [];
 
-  final _noteStremcontrollar = StreamController.broadcast();
-  // Stream allNotes => _noteStremcontrollar.Stream
+  final _noteStremcontrollar = StreamController<List<DataBaseNote>>.broadcast();
+
+  Stream<List<DataBaseNote>> get allNotes => _noteStremcontrollar.stream;
+
   Future<DataBaseUser> getOrCreateUser({required String email}) async {
     try {
       final user = await getUser(email: email);
