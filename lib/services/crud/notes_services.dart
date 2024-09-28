@@ -162,7 +162,10 @@ class NotesServices {
 
   Future<int> deleteAllNotes() async {
     final db = _getDataBaseOrThrow();
-    return await db.delete(noteTable);
+    final deleteNum = await db.delete(noteTable);
+    _notes = [];
+    _noteStremcontrollar.add(_notes);
+    return deleteNum;
   }
 }
 
