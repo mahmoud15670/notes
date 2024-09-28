@@ -12,14 +12,24 @@ class NotesServices {
   List<DataBaseNote> _notes = [];
 
   final _noteStremcontrollar = StreamController.broadcast();
-
+  Future<DataBaseUser> getOrCreateUser({required String email}) async {
+    try{
+      final user = await getUser(email: email);
+      return user;
+    } on CouldNotFindUserException {
+      final createdUser = createUser(email: email);
+      return createdUser;
+    } catch (_) {
+      rethrow;
+    }
+  }
   Future<void>_cacheNotes() async {
     final allNotes = await getAlllNotes();
     _notes = allNotes.toList();
     _noteStremcontrollar.add(_notes);
   }
 
-  Database _getDataBaseOrThrow() {
+  Future<Database> _getDataBaseOrThrow() async {
     final db = _db;
     if (db == null) {
       throw DataBaseNotOpenException();
