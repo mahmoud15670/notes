@@ -145,7 +145,11 @@ class NotesServices {
     await getNote(id: note.id);
     final updateCount = await db.update(noteTable, {textColumn: text});
     if (updateCount == 0) throw CouldNotUpdateNote();
-    return await getNote(id: note.id);
+    final updatedNote = await getNote(id: note.id);
+    _notes.removeWhere((note) => note.id == updatedNote.id);
+    _notes.add(updatedNote);
+    _noteStremcontrollar.add(_notes);
+    return updatedNote;
   }
 
   Future<void> deleteNote({required int id}) async {
