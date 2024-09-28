@@ -156,6 +156,8 @@ class NotesServices {
       whereArgs: [id],
     );
     if (deletedCount == 0) throw CouldNotDeleteNoteExciption();
+    _notes.removeWhere((note) => note.id == id);
+    _noteStremcontrollar.add(_notes);
   }
 
   Future<int> deleteAllNotes() async {
