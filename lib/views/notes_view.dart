@@ -18,10 +18,14 @@ class _NotesViewState extends State<NotesView> {
 
   @override
   void initState() {
-    final _notesServices = NotesServices();
+    _notesServices = NotesServices();
     super.initState();
   }
-
+  @override
+  void dispose() {
+    _notesServices.close();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
