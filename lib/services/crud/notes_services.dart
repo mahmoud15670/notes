@@ -30,20 +30,20 @@ class NotesServices {
     _noteStremcontrollar.add(_notes);
   }
 
-  Future<void> _ensureDataBaseOpend() async {
-    try {
-      await open();
-    } on DataBaseAlradyOpenExption {
-      //emoty
-    }
-  }
-
   Database _getDataBaseOrThrow() {
     final db = _db;
     if (db == null) {
       throw DataBaseNotOpenException();
     } else {
       return db;
+    }
+  }
+
+  Future<void> _ensureDataBaseOpend() async {
+    try {
+      await open();
+    } on DataBaseAlradyOpenExption {
+      //emoty
     }
   }
 
