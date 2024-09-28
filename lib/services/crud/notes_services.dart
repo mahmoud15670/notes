@@ -109,7 +109,10 @@ class NotesServices {
       userIdColumn: owner.id,
       textColumn: '',
     });
-    return DataBaseNote(noteId, owner.id, '');
+    final note = DataBaseNote(noteId, owner.id, '');
+    _notes.add(note);
+    _noteStremcontrollar.add(_notes);
+    return note;
   }
 
   Future<DataBaseNote> getNote({required int id}) async {
