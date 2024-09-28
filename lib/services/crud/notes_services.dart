@@ -124,7 +124,11 @@ class NotesServices {
       whereArgs: [id],
     );
     if (notes.isEmpty) throw CouldNotFindNote();
-    return DataBaseNote.fromRow(notes.first);
+    final note = DataBaseNote.fromRow(notes.first);
+    _notes.removeWhere((note) => note.id == id);
+    _notes.add(note);
+    _noteStremcontrollar.add(_notes);
+    return note;
   }
 
   Future<Iterable<DataBaseNote>> getAlllNotes() async {
