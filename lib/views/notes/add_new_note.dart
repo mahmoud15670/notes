@@ -48,7 +48,21 @@ class _AddNewNoteState extends State<AddNewNote> {
     }
   }
 
-  void _textControllerListener
+  void _textControllerListener() async {
+    final note = _note;
+    if (note == null) {
+      return;
+    }
+    final text = _textController.text;
+    await _notesServices.updateNote(
+      note: note,
+      text: text,
+    );
+  }
+
+  void _setupTextControllerListener(){
+    
+  }
 
   @override
   void dispose() {
