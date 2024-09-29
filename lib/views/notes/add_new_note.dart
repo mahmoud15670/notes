@@ -10,6 +10,11 @@ class AddNewNote extends StatefulWidget {
 class _AddNewNoteState extends State<AddNewNote> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add note'),
+      ),
+      body: const Text('add note here...'),
+    );
   }
 }
