@@ -86,6 +86,8 @@ class _AddNewNoteState extends State<AddNewNote> {
           switch (snapshot.connectionState){
             
             case ConnectionState.done:
+              _note = snapshot.data as DataBaseNote;
+              _setupTextControllerListener();
               return TextField(
                 controller: _textController,
                 keyboardType: TextInputType.multiline,
