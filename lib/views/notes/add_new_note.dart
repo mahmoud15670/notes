@@ -15,10 +15,10 @@ class _AddNewNoteState extends State<AddNewNote> {
 
   Future<DataBaseNote> createNote () async{
     final exsitsNote = _note;
-    if (_note != null){
+    if (exsitsNote != null){
       return exsitsNote;
     }
-    final userEmail = await AuthServices.firebase().currentUser!.email!;
+    final userEmail = AuthServices.firebase().currentUser!.email!;
     final owner = await _notesServices.getUser(email: userEmail);
     return await _notesServices.createNote(owner: owner);
   }
