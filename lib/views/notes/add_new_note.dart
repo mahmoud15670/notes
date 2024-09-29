@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/crud/notes_services.dart';
 
 class AddNewNote extends StatefulWidget {
@@ -9,7 +10,19 @@ class AddNewNote extends StatefulWidget {
 }
 class _AddNewNoteState extends State<AddNewNote> {
   DataBaseNote? _note;
-  late final _notesServices;
+  late final NotesServices _notesServices;
+  late final TextEditingController _textController;
+
+  Future<DataBaseNote> createNote () async{
+    final exsitsNote = _note;
+    if (_note != null){
+      return exsitsNote;
+    }
+    final userEmail = await AuthServices.firebase().currentUser!.email!;
+    final owner = await _notesServices.getUser(email: userEmail);
+    return await _notesServices.createNote(owner: owner);
+  }
+
 
   @override
   Widget build(BuildContext context) {
