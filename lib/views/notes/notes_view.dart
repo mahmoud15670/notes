@@ -31,7 +31,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          title: const Text('Your notes'),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
             IconButton(
@@ -77,7 +77,7 @@ class _NotesViewState extends State<NotesView> {
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
-                        return const Text('data;');
+                        return const Text('data');
                       default:
                         return const CircularProgressIndicator();
                     }
