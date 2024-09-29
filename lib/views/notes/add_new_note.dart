@@ -48,6 +48,16 @@ class _AddNewNoteState extends State<AddNewNote> {
     }
   }
 
+  void _textControllerListener
+
+  @override
+  void dispose() {
+    _saveNoteIfTextIsEMpty();
+    _deleteNoteIfTextEmpty();
+    _textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
