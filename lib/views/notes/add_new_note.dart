@@ -21,7 +21,7 @@ class _AddNewNoteState extends State<AddNewNote> {
     super.initState();
   }
 
-  Future<DataBaseNote> createNote() async {
+  Future<DataBaseNote> createNewNote() async {
     final exsitsNote = _note;
     if (exsitsNote != null) {
       return exsitsNote;
@@ -60,8 +60,9 @@ class _AddNewNoteState extends State<AddNewNote> {
     );
   }
 
-  void _setupTextControllerListener(){
-    
+  void _setupTextControllerListener() {
+    _textController.removeListener(_textControllerListener);
+    _textController.addListener(_textControllerListener);
   }
 
   @override
@@ -79,7 +80,23 @@ class _AddNewNoteState extends State<AddNewNote> {
         title: const Text('Add note'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: const Text('add note here...'),
+      body: FutureBuilder(
+        future: createNewNote(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState){
+            
+            case ConnectionState.done:
+              return TextField(
+                controller: _textController,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(hintText: 'type your note...'),
+                maxLines: null,
+              );
+            default :
+              return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
