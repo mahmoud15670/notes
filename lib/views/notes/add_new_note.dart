@@ -23,7 +23,12 @@ class _AddNewNoteState extends State<AddNewNote> {
     return await _notesServices.createNote(owner: owner);
   }
 
-  void _deleteNoteIfTextEmpty
+  Future<void> _deleteNoteIfTextEmpty () async {
+    final note = _note;
+    if(_textController.text.isEmpty && note != null){
+      await _notesServices.deleteNote(id: note.id);
+    }
+  }
 
 
   @override
