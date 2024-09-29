@@ -13,6 +13,7 @@ class _AddNewNoteState extends State<AddNewNote> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add note'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: const Text('add note here...'),
     );
