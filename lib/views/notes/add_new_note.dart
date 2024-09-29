@@ -9,6 +9,7 @@ class AddNewNote extends StatefulWidget {
 }
 class _AddNewNoteState extends State<AddNewNote> {
   DataBaseNote? _note;
+  late final _notesServices;
 
   @override
   Widget build(BuildContext context) {
