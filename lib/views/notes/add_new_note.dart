@@ -13,6 +13,14 @@ class _AddNewNoteState extends State<AddNewNote> {
   late final NotesServices _notesServices;
   late final TextEditingController _textController;
 
+  @override
+  void initState() {
+    _notesServices = NotesServices();
+    _textController = TextEditingController();
+    super.initState();
+  }
+  
+
   Future<DataBaseNote> createNote () async{
     final exsitsNote = _note;
     if (exsitsNote != null){
@@ -23,10 +31,10 @@ class _AddNewNoteState extends State<AddNewNote> {
     return await _notesServices.createNote(owner: owner);
   }
 
-  void _saveNoteIfTextIsEMpty() {
+  void _saveNoteIfTextIsEMpty() async {
     final note = _note;
     if (_textController.text.isNotEmpty && note != null){
-      _notesServices.updateNote(note: note, text: _textController.text);
+      await _notesServices.updateNote(note: note, text: _textController.text);
     }
   }
 
@@ -36,7 +44,6 @@ class _AddNewNoteState extends State<AddNewNote> {
       _notesServices.deleteNote(id: note.id);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
