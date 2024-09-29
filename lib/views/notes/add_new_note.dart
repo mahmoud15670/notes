@@ -8,6 +8,7 @@ class AddNewNote extends StatefulWidget {
   @override
   State<AddNewNote> createState() => _AddNewNoteState();
 }
+
 class _AddNewNoteState extends State<AddNewNote> {
   DataBaseNote? _note;
   late final NotesServices _notesServices;
@@ -19,11 +20,10 @@ class _AddNewNoteState extends State<AddNewNote> {
     _textController = TextEditingController();
     super.initState();
   }
-  
 
-  Future<DataBaseNote> createNote () async{
+  Future<DataBaseNote> createNote() async {
     final exsitsNote = _note;
-    if (exsitsNote != null){
+    if (exsitsNote != null) {
       return exsitsNote;
     }
     final userEmail = AuthServices.firebase().currentUser!.email!;
@@ -33,14 +33,17 @@ class _AddNewNoteState extends State<AddNewNote> {
 
   void _saveNoteIfTextIsEMpty() async {
     final note = _note;
-    if (_textController.text.isNotEmpty && note != null){
-      await _notesServices.updateNote(note: note, text: _textController.text);
+    if (_textController.text.isNotEmpty && note != null) {
+      await _notesServices.updateNote(
+        note: note,
+        text: _textController.text,
+      );
     }
   }
 
-  void _deleteNoteIfTextEmpty () {
+  void _deleteNoteIfTextEmpty() {
     final note = _note;
-    if(_textController.text.isEmpty && note != null){
+    if (_textController.text.isEmpty && note != null) {
       _notesServices.deleteNote(id: note.id);
     }
   }
