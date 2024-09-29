@@ -23,6 +23,8 @@ class _AddNewNoteState extends State<AddNewNote> {
     return await _notesServices.createNote(owner: owner);
   }
 
+  void _deleteNoteIfTextEmpty
+
 
   @override
   Widget build(BuildContext context) {
