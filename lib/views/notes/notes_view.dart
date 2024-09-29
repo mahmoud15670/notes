@@ -34,6 +34,12 @@ class _NotesViewState extends State<NotesView> {
           title: const Text('Home'),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(newNoteRout);
+              },
+              icon: Icon(Icons.add),
+            ),
             PopupMenuButton<MenuAction>(
               icon: const Icon(Icons.menu),
               iconSize: 45.0,
@@ -69,8 +75,7 @@ class _NotesViewState extends State<NotesView> {
                 return StreamBuilder(
                   stream: _notesServices.allNotes,
                   builder: (context, snapshot) {
-                    switch (snapshot.connectionState){
-                                
+                    switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
                         return const Text('data;');
                       default:
@@ -78,7 +83,7 @@ class _NotesViewState extends State<NotesView> {
                     }
                   },
                 );
-              default: 
+              default:
                 return const CircularProgressIndicator();
             }
           },
