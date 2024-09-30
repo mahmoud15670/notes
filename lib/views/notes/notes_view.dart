@@ -3,6 +3,7 @@ import 'package:mynotes/constance/routs.dart';
 import 'package:mynotes/enums/menu_action.dart';
 import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/crud/notes_services.dart';
+import 'package:mynotes/utilities/dialogs/logout_dialog.dart';
 import 'package:mynotes/views/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
@@ -77,7 +78,9 @@ class _NotesViewState extends State<NotesView> {
                           final allNotes = snapshot.data as List<DataBaseNote>;
                           return NotesListView(
                             notes: allNotes,
-                            onDeleteNote: (note) {},
+                            onDeleteNote: (note) async {
+                              await _notesServices.deleteNote(id: note.id);
+                            },
                           );
                         } else {
                           return const CircularProgressIndicator();
@@ -93,31 +96,4 @@ class _NotesViewState extends State<NotesView> {
           },
         ));
   }
-}
-
-Future<bool> showLogoutDialog(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Sign Out'),
-        content: const Text('Are you sour you want to sign out?'),
-        icon: const Icon(Icons.logout),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text('cancel')),
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: const Text('signout')),
-        ],
-      );
-    },
-  ).then(
-    (value) => value ?? false,
-  );
 }
