@@ -4,6 +4,7 @@ import 'package:mynotes/services/crud/notes_services.dart';
 
 class NotesListView extends StatelessWidget {
   final List<DataBaseNote> notes;
+  
   const NotesListView({
     super.key,
     required this.notes,
