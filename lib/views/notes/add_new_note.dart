@@ -81,7 +81,7 @@ class _AddNewNoteState extends State<AddNewNote> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: FutureBuilder(
-        future: createNewNote,
+        future: createNewNote(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState){
             
