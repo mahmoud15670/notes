@@ -87,7 +87,7 @@ class NotesServices {
     final results = await db.query(
       userTable,
       limit: 1,
-      where: 'emai = ?',
+      where: 'email = ?',
       whereArgs: [email.toLowerCase()],
     );
     if (results.isNotEmpty) throw UserAlradyExsitsException();
