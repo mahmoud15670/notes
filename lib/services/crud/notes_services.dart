@@ -10,9 +10,15 @@ class NotesServices {
   Database? _db;
   List<DataBaseNote> _notes = [];
 
-  final _noteStremcontrollar = StreamController<List<DataBaseNote>>.broadcast();
+  late final StreamController<List<DataBaseNote>> _noteStremcontrollar;
   
-  NotesServices._sharedInstance();
+  NotesServices._sharedInstance() {
+    _noteStremcontrollar = StreamController<List<DataBaseNote>>.broadcast(
+      onListen: () {
+        _noteStremcontrollar.sink.add(_notes);
+      },
+    );
+  }
   static final NotesServices _shared = NotesServices._sharedInstance();
   factory NotesServices() => _shared;
 
