@@ -48,11 +48,7 @@ class HomePage extends StatelessWidget {
               return const LoginView();
             }
           default:
-            return SizedBox(
-              height: 10.2,
-              width: 10.2,
-              child: const CircularProgressIndicator(),
-            );
+            return  const CircularProgressIndicator();
         }
       },
     );
