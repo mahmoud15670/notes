@@ -26,6 +26,12 @@ class NotesListView extends StatelessWidget {
             softWrap: true,
             overflow: TextOverflow.ellipsis,
           ),
+          trailing: IconButton(
+            onPressed: () {
+              
+            },
+            icon: Icon(Icons.delete),
+          ),
         );
       },
     );
