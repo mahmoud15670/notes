@@ -28,7 +28,9 @@ class _AddNewNoteState extends State<AddNewNote> {
     }
     final userEmail = AuthServices.firebase().currentUser!.email!;
     final owner = await _notesServices.getUser(email: userEmail.toLowerCase());
-    return await _notesServices.createNote(owner: owner);
+    final note = await _notesServices.createNote(owner: owner);
+    print(note);
+    return note;
   }
 
   void _saveNoteIfTextIsEMpty() async {
