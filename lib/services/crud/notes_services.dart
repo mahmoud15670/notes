@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:mynotes/extentions/list/filter.dart';
 import 'package:mynotes/services/crud/crud_exceptions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -23,7 +24,15 @@ class NotesServices {
   static final NotesServices _shared = NotesServices._sharedInstance();
   factory NotesServices() => _shared;
 
-  Stream<List<DataBaseNote>> get allNotes => _noteStremcontrollar.stream;
+  Stream<List<DataBaseNote>> get allNotes =>
+      _noteStremcontrollar.stream.filter((note) {
+        final currentUser = _user;
+        if (currentUser != null) {
+          return note.userId == currentUser.id;
+        } else {
+          throw UserShouldBeSetBefore();
+        }
+      });
 
   Future<DataBaseUser> getOrCreateUser({
     required String email,
@@ -223,6 +232,8 @@ class NotesServices {
     return deleteNum;
   }
 }
+
+
 
 @immutable
 class DataBaseUser {
