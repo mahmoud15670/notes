@@ -27,6 +27,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     if (widgetNote != null){
       _note = widgetNote;
       _textController.text = widgetNote.text;
+      return widgetNote;
     }
     final exsitsNote = _note;
     if (exsitsNote != null) {
@@ -35,6 +36,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     final userEmail = AuthServices.firebase().currentUser!.email!;
     final owner = await _notesServices.getUser(email: userEmail.toLowerCase());
     final note = await _notesServices.createNote(owner: owner);
+    _note = note;
     return note;
   }
 
@@ -93,7 +95,6 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
           switch (snapshot.connectionState){
             
             case ConnectionState.done:
-              _note = snapshot.data as DataBaseNote;
               _setupTextControllerListener();
               return TextField(
                 controller: _textController,
