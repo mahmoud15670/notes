@@ -24,7 +24,7 @@ class NotesListView extends StatelessWidget {
         final note = notes[index];
         return ListTile(
           onTap: () {
-            onTapNote;
+            onTapNote(note);
           },
           title: Text(
             note.text,
