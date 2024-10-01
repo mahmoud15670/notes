@@ -32,7 +32,7 @@ class _NotesViewState extends State<NotesView> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(newNoteRout);
+                Navigator.of(context).pushNamed(createOrUpdateNoteRout);
               },
               icon: Icon(Icons.add),
             ),
