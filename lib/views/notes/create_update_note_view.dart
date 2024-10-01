@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/crud/notes_services.dart';
 
-class AddNewNote extends StatefulWidget {
-  const AddNewNote({super.key});
+class CreateUpdateNoteView extends StatefulWidget {
+  const CreateUpdateNoteView({super.key});
 
   @override
-  State<AddNewNote> createState() => _AddNewNoteState();
+  State<CreateUpdateNoteView> createState() => _CreateUpdateNoteViewState();
 }
 
-class _AddNewNoteState extends State<AddNewNote> {
+class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   DataBaseNote? _note;
   late final NotesServices _notesServices;
   late final TextEditingController _textController;
@@ -68,8 +68,8 @@ class _AddNewNoteState extends State<AddNewNote> {
 
   @override
   void dispose() {
-    _saveNoteIfTextIsEMpty();
     _deleteNoteIfTextEmpty();
+    _saveNoteIfTextIsEMpty();
     _textController.dispose();
     super.dispose();
   }

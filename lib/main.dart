@@ -22,7 +22,7 @@ void main() {
       registerRout: (context) => const RegisterView(),
       verfiyRout: (context) => const VerifyEmailView(),
       notesRout: (context) => const NotesView(),
-      newNoteRout: (context) => const AddNewNote(),
+      newNoteRout: (context) => const CreateUpdateNoteView(),
     },
   ));
 }
