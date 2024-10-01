@@ -11,7 +11,7 @@ class NotesServices {
   List<DataBaseNote> _notes = [];
 
   late final StreamController<List<DataBaseNote>> _noteStremcontrollar;
-  
+
   NotesServices._sharedInstance() {
     _noteStremcontrollar = StreamController<List<DataBaseNote>>.broadcast(
       onListen: () {
@@ -181,7 +181,12 @@ class NotesServices {
     await _ensureDataBaseOpend();
     final db = _getDataBaseOrThrow();
     await getNote(id: note.id);
-    final updateCount = await db.update(noteTable, {textColumn: text});
+    final updateCount = await db.update(
+      noteTable,
+      {textColumn: text},
+      where: 'id = ?',
+      whereArgs: [note.id]
+    );
     if (updateCount == 0) throw CouldNotUpdateNote();
     final updatedNote = await getNote(id: note.id);
     _notes.removeWhere((note) => note.id == updatedNote.id);
