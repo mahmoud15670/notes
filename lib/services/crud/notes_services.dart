@@ -25,15 +25,21 @@ class NotesServices {
 
   Stream<List<DataBaseNote>> get allNotes => _noteStremcontrollar.stream;
 
-  Future<DataBaseUser> getOrCreateUser({required String email}) async {
+  Future<DataBaseUser> getOrCreateUser({
+    required String email,
+    bool setAsCurrentUser = true,
+  }) async {
     try {
-      final user = await getUser(
-        email: email,
-        bool setAsCurrentUser = true,
-      );
+      final user = await getUser(email: email);
+      if (setAsCurrentUser) {
+        _user = user;
+      }
       return user;
     } on CouldNotFindUserException {
-      final createdUser = createUser(email: email);
+      final createdUser = await createUser(email: email);
+      if (setAsCurrentUser) {
+        _user = createdUser;
+      }
       return createdUser;
     } catch (_) {
       rethrow;
