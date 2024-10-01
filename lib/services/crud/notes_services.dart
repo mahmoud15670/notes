@@ -8,6 +8,7 @@ import 'package:path/path.dart' show join;
 
 class NotesServices {
   Database? _db;
+  DataBaseUser? _user;
   List<DataBaseNote> _notes = [];
 
   late final StreamController<List<DataBaseNote>> _noteStremcontrollar;
