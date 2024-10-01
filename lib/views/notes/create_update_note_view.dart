@@ -21,7 +21,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     super.initState();
   }
 
-  Future<DataBaseNote> createOrGetExsitingNote() async {
+  Future<DataBaseNote> createOrGetExistingNote(BuildContext context) async {
+    
     final exsitsNote = _note;
     if (exsitsNote != null) {
       return exsitsNote;
@@ -82,7 +83,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: FutureBuilder(
-        future: createOrGetExsitingNote(),
+        future: createOrGetExistingNote(context),
         builder: (context, snapshot) {
           switch (snapshot.connectionState){
             
