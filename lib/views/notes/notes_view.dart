@@ -83,8 +83,9 @@ class _NotesViewState extends State<NotesView> {
                             },
                             onTapNote: (note) {
                               Navigator.of(context).pushNamed(
-                                  createOrUpdateNoteRout,
-                                  arguments: note);
+                                createOrUpdateNoteRout,
+                                arguments: note,
+                              );
                             },
                           );
                         } else {
