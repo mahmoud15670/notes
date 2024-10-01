@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/services/crud/notes_services.dart';
 import 'package:mynotes/utilities/dialogs/delete_dialog.dart';
 
-typedef DeleteNoteCallback = void Function(DataBaseNote note);
+typedef NoteCallback = void Function(DataBaseNote note);
 
 class NotesListView extends StatelessWidget {
   final List<DataBaseNote> notes;
-  final DeleteNoteCallback onDeleteNote;
+  final NoteCallback onDeleteNote;
+  final NoteCallback onTapNote;
 
   const NotesListView({
     super.key,
     required this.notes,
     required this.onDeleteNote,
+    required this.onTapNote,
   });
 
   @override
@@ -30,7 +32,7 @@ class NotesListView extends StatelessWidget {
           trailing: IconButton(
             onPressed: () async {
               final shouldDelete = await showDeleteDialog(context);
-              if(shouldDelete) onDeleteNote(note);
+              if (shouldDelete) onDeleteNote(note);
             },
             icon: Icon(Icons.delete),
           ),
