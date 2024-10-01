@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/crud/notes_services.dart';
+import 'package:mynotes/utilities/generics/get_arguments.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({super.key});
@@ -22,7 +23,11 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   }
 
   Future<DataBaseNote> createOrGetExistingNote(BuildContext context) async {
-    
+    final widgetNote = context.getArgument<DataBaseNote>();
+    if (widgetNote != null){
+      _note = widgetNote;
+      _textController.text = widgetNote.text;
+    }
     final exsitsNote = _note;
     if (exsitsNote != null) {
       return exsitsNote;
