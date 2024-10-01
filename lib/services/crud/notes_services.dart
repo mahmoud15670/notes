@@ -27,7 +27,10 @@ class NotesServices {
 
   Future<DataBaseUser> getOrCreateUser({required String email}) async {
     try {
-      final user = await getUser(email: email);
+      final user = await getUser(
+        email: email,
+        bool setAsCurrentUser = true,
+      );
       return user;
     } on CouldNotFindUserException {
       final createdUser = createUser(email: email);
@@ -182,12 +185,8 @@ class NotesServices {
     await _ensureDataBaseOpend();
     final db = _getDataBaseOrThrow();
     await getNote(id: note.id);
-    final updateCount = await db.update(
-      noteTable,
-      {textColumn: text},
-      where: 'id = ?',
-      whereArgs: [note.id]
-    );
+    final updateCount = await db.update(noteTable, {textColumn: text},
+        where: 'id = ?', whereArgs: [note.id]);
     if (updateCount == 0) throw CouldNotUpdateNote();
     final updatedNote = await getNote(id: note.id);
     _notes.removeWhere((note) => note.id == updatedNote.id);
