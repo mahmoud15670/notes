@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mynotes/services/cloud/cloud_note.dart';
 import 'package:mynotes/services/cloud/cloud_storage_constants.dart';
+import 'package:mynotes/services/cloud/cloud_storage_exceptions.dart';
 
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes');
@@ -10,6 +11,30 @@ class FirebaseCloudStorage {
       ownerUserIdField: ownerUserId,
       textField: '',
     });
+  }
+
+  Future<Iterable<CloudNote>> getNotes({required String ownerUserId}) async {
+    try {
+      return await notes
+          .where(
+            ownerUserIdField,
+            isEqualTo: ownerUserId,
+          )
+          .get()
+          .then(
+            (value) => value.docs.map(
+              (doc) {
+                return CloudNote(
+                  documentId: doc.id,
+                  ownerUserId: doc.data()[ownerUserIdField] as String,
+                  text: doc.data()[textField] as String,
+                );
+              },
+            ),
+          );
+    } catch (_) {
+      throw CouldNotGetAllNoteException();
+    }
   }
 
   static final FirebaseCloudStorage _shared =
