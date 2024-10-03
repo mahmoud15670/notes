@@ -1,2 +1,2 @@
-const userIdFeaild = 'user_id';
-const textFeaild = 'text';
+const userIdField = 'user_id';
+const textField = 'text';
