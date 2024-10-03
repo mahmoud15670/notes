@@ -5,10 +5,10 @@ import 'package:mynotes/services/cloud/cloud_storage_constants.dart';
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes');
 
-  void createNewNote({required String ownerUserId})async {
+  void createNewNote({required String ownerUserId}) async {
     await notes.add({
-        ownerUserIdField:ownerUserId,
-        textField:''
+      ownerUserIdField: ownerUserId,
+      textField: '',
     });
   }
 
