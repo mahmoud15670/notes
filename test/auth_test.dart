@@ -103,7 +103,11 @@ class MoukAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitializedException();
     if (email == 'foo@bar.com') throw InvalidCredentialAuthException();
     if (password == '123') throw InvalidCredentialAuthException();
-    const user = AuthUser(email: 'hkdj',isEmailVerified: false);
+    const user = AuthUser(
+      id: 'sd',
+      email: 'hkdj',
+      isEmailVerified: false,
+    );
     _user = user;
     return Future.value(user);
   }
@@ -121,7 +125,11 @@ class MoukAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitializedException();
     final user = _user;
     if (user == null) throw UserNotLoggedInAuthException();
-    const newUser = AuthUser(email: 'foo@bar.com',isEmailVerified: true);
+    const newUser = AuthUser(
+      id: 'cvs',
+      email: 'foo@bar.com',
+      isEmailVerified: true,
+    );
     _user = newUser;
   }
 }
