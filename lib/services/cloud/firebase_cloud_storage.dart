@@ -37,6 +37,13 @@ class FirebaseCloudStorage {
     }
   }
 
+  Stream<Iterable<CloudNote>> allNotes({required String ownerUserId}) =>
+      notes.snapshots().map(
+            (event) => event.docs
+                .map((doc) => CloudNote.fromSnapshot(doc))
+                .where((note) => note.ownerUserId == ownerUserId),
+          );
+
   static final FirebaseCloudStorage _shared =
       FirebaseCloudStorage._sharedInstance();
   FirebaseCloudStorage._sharedInstance();
