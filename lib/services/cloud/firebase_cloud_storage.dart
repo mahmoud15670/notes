@@ -7,10 +7,14 @@ class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes');
 
   void createNewNote({required String ownerUserId}) async {
-    await notes.add({
-      ownerUserIdField: ownerUserId,
-      textField: '',
-    });
+    try {
+      await notes.add({
+        ownerUserIdField: ownerUserId,
+        textField: '',
+      });
+    } catch (_) {
+      throw CouldNotCreateNoteException();
+    }
   }
 
   Future<Iterable<CloudNote>> getNotes({required String ownerUserId}) async {
