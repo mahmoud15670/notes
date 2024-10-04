@@ -29,11 +29,7 @@ class FirebaseCloudStorage {
           )
           .get()
           .then(
-            (value) => value.docs.map(
-              (doc) {
-                return CloudNote.fromSnapshot(doc);
-              },
-            ),
+            (value) => value.docs.map((doc) => CloudNote.fromSnapshot(doc)),
           );
     } catch (_) {
       throw CouldNotGetAllNoteException();
