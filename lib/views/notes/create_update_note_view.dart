@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/services/auth/auth_services.dart';
+import 'package:mynotes/services/cloud/cloud_note.dart';
+import 'package:mynotes/services/cloud/firebase_cloud_storage.dart';
 import 'package:mynotes/services/crud/notes_services.dart';
 import 'package:mynotes/utilities/generics/get_arguments.dart';
 
@@ -11,8 +13,8 @@ class CreateUpdateNoteView extends StatefulWidget {
 }
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
-  DataBaseNote? _note;
-  late final NotesServices _notesServices;
+  CloudNote? _note;
+  late final FirebaseCloudStorage _notesServices;
   late final TextEditingController _textController;
 
   @override
@@ -22,8 +24,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     super.initState();
   }
 
-  Future<DataBaseNote> createOrGetExistingNote(BuildContext context) async {
-    final widgetNote = context.getArgument<DataBaseNote>();
+  Future<CloudNote> createOrGetExistingNote(BuildContext context) async {
+    final widgetNote = context.getArgument<CloudNote>();
     if (widgetNote != null){
       _note = widgetNote;
       _textController.text = widgetNote.text;
@@ -33,9 +35,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     if (exsitsNote != null) {
       return exsitsNote;
     }
-    final userEmail = AuthServices.firebase().currentUser!.email;
-    final owner = await _notesServices.getUser(email: userEmail.toLowerCase());
-    final note = await _notesServices.createNote(owner: owner);
+    final userId = AuthServices.firebase().currentUser!.id;
+    final note = await _notesServices.createNewNote(ownerUserId: userId);
     _note = note;
     return note;
   }
@@ -44,8 +45,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     final note = _note;
     if (_textController.text.isNotEmpty && note != null) {
       await _notesServices.updateNote(
-        note: note,
-        text: _textController.text,
+        text: _textController.text, documentId: ,
       );
     }
   }
