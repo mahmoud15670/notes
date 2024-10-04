@@ -8,10 +8,13 @@ class FirebaseCloudStorage {
 
   void createNewNote({required String ownerUserId}) async {
     try {
-      await notes.add({
+      final newNote = await notes.add({
         ownerUserIdField: ownerUserId,
         textField: '',
       });
+      newNote.get().then(
+            (value) => value,
+          );
     } catch (_) {
       throw CouldNotCreateNoteException();
     }
@@ -28,11 +31,7 @@ class FirebaseCloudStorage {
           .then(
             (value) => value.docs.map(
               (doc) {
-                return CloudNote(
-                  documentId: doc.id,
-                  ownerUserId: doc.data()[ownerUserIdField] as String,
-                  text: doc.data()[textField] as String,
-                );
+                return CloudNote.fromSnapshot(doc);
               },
             ),
           );
