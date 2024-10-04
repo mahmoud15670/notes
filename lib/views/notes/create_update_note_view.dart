@@ -20,7 +20,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   void initState() {
     _notesServices = FirebaseCloudStorage();
     _textController = TextEditingController();
-    super.initState();
+    super.initState();  
   }
 
   Future<CloudNote> createOrGetExistingNote(BuildContext context) async {
