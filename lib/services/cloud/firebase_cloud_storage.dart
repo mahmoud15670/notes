@@ -6,15 +6,18 @@ import 'package:mynotes/services/cloud/cloud_storage_exceptions.dart';
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection('notes');
 
-  void createNewNote({required String ownerUserId}) async {
+  Future<CloudNote> createNewNote({required String ownerUserId}) async {
     try {
-      final newNote = await notes.add({
+      final document = await notes.add({
         ownerUserIdField: ownerUserId,
         textField: '',
       });
-      newNote.get().then(
-            (value) => value,
-          );
+      final note = await document.get();
+      return CloudNote(
+        documentId: note.id,
+        ownerUserId: ownerUserId,
+        text: '',
+      );
     } catch (_) {
       throw CouldNotCreateNoteException();
     }
