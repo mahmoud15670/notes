@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/cloud/cloud_note.dart';
 import 'package:mynotes/services/cloud/firebase_cloud_storage.dart';
-import 'package:mynotes/services/crud/notes_services.dart';
 import 'package:mynotes/utilities/generics/get_arguments.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
@@ -19,14 +18,14 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
 
   @override
   void initState() {
-    _notesServices = NotesServices();
+    _notesServices = FirebaseCloudStorage();
     _textController = TextEditingController();
     super.initState();
   }
 
   Future<CloudNote> createOrGetExistingNote(BuildContext context) async {
     final widgetNote = context.getArgument<CloudNote>();
-    if (widgetNote != null){
+    if (widgetNote != null) {
       _note = widgetNote;
       _textController.text = widgetNote.text;
       return widgetNote;
@@ -45,7 +44,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     final note = _note;
     if (_textController.text.isNotEmpty && note != null) {
       await _notesServices.updateNote(
-        text: _textController.text, documentId: ,
+        text: _textController.text,
+        documentId: note.documentId,
       );
     }
   }
@@ -53,7 +53,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   void _deleteNoteIfTextEmpty() {
     final note = _note;
     if (_textController.text.isEmpty && note != null) {
-      _notesServices.deleteNote(id: note.id);
+      _notesServices.deleteNote(documentId: note.documentId);
     }
   }
 
@@ -64,7 +64,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     }
     final text = _textController.text;
     await _notesServices.updateNote(
-      note: note,
+      documentId: note.documentId,
       text: text,
     );
   }
@@ -92,8 +92,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
       body: FutureBuilder(
         future: createOrGetExistingNote(context),
         builder: (context, snapshot) {
-          switch (snapshot.connectionState){
-            
+          switch (snapshot.connectionState) {
             case ConnectionState.done:
               _setupTextControllerListener();
               return TextField(
@@ -102,7 +101,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                 decoration: InputDecoration(hintText: 'type your note...'),
                 maxLines: null,
               );
-            default :
+            default:
               return const CircularProgressIndicator();
           }
         },
