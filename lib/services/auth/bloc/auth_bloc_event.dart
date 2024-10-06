@@ -10,7 +10,12 @@ class AuthEventLoading extends AuthBlocEvent {
 }
 
 class AuthEventLogin extends AuthBlocEvent {
-  const AuthEventLogin();
+  final String email;
+  final String password;
+  const AuthEventLogin(
+    this.email,
+    this.password,
+  );
 }
 
 class AuthEventverfitemail extends AuthBlocEvent {
