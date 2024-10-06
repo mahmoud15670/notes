@@ -49,7 +49,7 @@ class _NotesViewState extends State<NotesView> {
                   final shouldsignout = await showLogoutDialog(context);
                   if (shouldsignout) {
                     context.read<AuthBloc>().add(
-                         const AuthEventLogout(),
+                          const AuthEventLogout(),
                         );
                   }
               }
@@ -59,7 +59,9 @@ class _NotesViewState extends State<NotesView> {
             itemBuilder: (context) {
               return const [
                 PopupMenuItem<MenuAction>(
-                    value: MenuAction.logout, child: Text('logout'))
+                  value: MenuAction.logout,
+                  child: Text('logout'),
+                )
               ];
             },
           )
