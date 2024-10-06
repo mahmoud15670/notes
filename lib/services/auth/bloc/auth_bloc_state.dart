@@ -5,14 +5,14 @@ abstract class AuthBlocState {
   const AuthBlocState();
 }
 
-class AuthBlocInitialze extends AuthBlocState {
-  const AuthBlocInitialze();
+class AuthStateInitialze extends AuthBlocState {
+  const AuthStateInitialze();
 }
 
-class AuthBlocLoggedIn extends AuthBlocState {
-  const AuthBlocLoggedIn();
+class AuthStateLoggedIn extends AuthBlocState {
+  const AuthStateLoggedIn();
 }
 
-class AuthBlocLoggedOut extends AuthBlocState {
-  const AuthBlocLoggedOut();
+class AuthStateLoggedOut extends AuthBlocState {
+  const AuthStateLoggedOut();
 }
