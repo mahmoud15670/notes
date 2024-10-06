@@ -18,9 +18,6 @@ class AuthEventLogin extends AuthEvent {
   );
 }
 
-class AuthEventverfitemail extends AuthEvent {
-  const AuthEventverfitemail();
-}
 
 class AuthEventLogout extends AuthEvent {
   const AuthEventLogout();
