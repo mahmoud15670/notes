@@ -62,8 +62,8 @@ class _LoginViewState extends State<LoginView> {
               onPressed: () async {
                 final email = _email.text;
                 final password = _password.text;
-                context.read<AuthBloc>().add(AuthEventInitialize());
                 try {
+                context.read<AuthBloc>().add(AuthEventLogin(email));
                   
                   await AuthServices.firebase().logIn(
                     email: email,
