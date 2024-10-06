@@ -50,7 +50,9 @@ class HomePage extends StatelessWidget {
           return const LoginView();
         } else {
           return const Scaffold(
-            body: CircularProgressIndicator(),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       },
