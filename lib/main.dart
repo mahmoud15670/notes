@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mynotes/constance/routs.dart';
 import 'package:mynotes/services/auth/auth_services.dart';
+import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
+import 'package:mynotes/services/auth/bloc/auth_state.dart';
+import 'package:mynotes/services/auth/firebase_auth_provider.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/notes/create_update_note_view.dart';
 import 'package:mynotes/views/notes/notes_view.dart';
@@ -16,7 +20,13 @@ void main() {
           seedColor: const Color.fromARGB(255, 39, 176, 42)),
       useMaterial3: true,
     ),
-    home: const HomePage(),
+    home: BlocBuilder<AuthBloc, AuthState>(
+      
+      builder: (context, state) {
+        AuthBloc(FirebaseAuthProvider());
+        return const HomePage();
+      },
+    ),
     routes: {
       loginRout: (context) => const LoginView(),
       registerRout: (context) => const RegisterView(),
@@ -48,7 +58,7 @@ class HomePage extends StatelessWidget {
               return const LoginView();
             }
           default:
-            return  const CircularProgressIndicator();
+            return const CircularProgressIndicator();
         }
       },
     );
