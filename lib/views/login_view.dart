@@ -59,34 +59,26 @@ class _LoginViewState extends State<LoginView> {
           ),
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) async {
-              if(state is AuthStateLoggedOut){
-                if(state.exeption is InvalidCredentialAuthException){
+              if (state is AuthStateLoggedOut) {
+                if (state.exeption is InvalidCredentialAuthException) {
                   await showErrorDialog(
-                        context, 'email or password is incorrect');
-                }else if (state.exeption is InvaidEmailAuthException){
+                      context, 'email or password is incorrect');
+                } else if (state.exeption is InvaidEmailAuthException) {
                   await showErrorDialog(context, 'invalid email');
+                } else if (state.exeption is GenericAuthException) {
+                  await showErrorDialog(context,
+                      'An Error happend check networ our you cerdetial');
                 }
               }
             },
             child: TextButton(
-                onPressed: () async {
+                onPressed: () {
                   final email = _email.text;
                   final password = _password.text;
-                  try {
-                    context.read<AuthBloc>().add(
-                          AuthEventLogin(
-                            email,
-                            password,
-                          ),
-                        );
-                  } on  {
-                    
-                  } on  {
-                    
-                  } on  {
-                    await showErrorDialog(context,
-                        'An Error happend check networ our you cerdetial');
-                  }
+                  context.read<AuthBloc>().add(AuthEventLogin(
+                        email,
+                        password,
+                      ));
                 },
                 child: const Text('Login')),
           ),
