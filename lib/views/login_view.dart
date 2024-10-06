@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mynotes/constance/routs.dart';
-import 'package:mynotes/main.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
-import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
 import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/utilities/dialogs/error_dialog.dart';
@@ -63,25 +61,12 @@ class _LoginViewState extends State<LoginView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                context.read<AuthBloc>().add(AuthEventLogin(email));
-                  
-                  await AuthServices.firebase().logIn(
-                    email: email,
-                    password: password,
-                  );
-
-                  final user = AuthServices.firebase().currentUser;
-                  if (user?.isEmailVerified ?? false) {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      notesRout,
-                      (route) => false,
-                    );
-                  } else {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      verfiyRout,
-                      (route) => false,
-                    );
-                  }
+                  context.read<AuthBloc>().add(
+                        AuthEventLogin(
+                          email,
+                          password,
+                        ),
+                      );
                 } on InvalidCredentialAuthException {
                   await showErrorDialog(
                       context, 'email or password is incorrect');
