@@ -14,11 +14,23 @@ class AuthStateLoggedIn extends AuthState {
   final AuthUser currentUser;
   const AuthStateLoggedIn(this.currentUser);
 }
-class AuthStateLoggedInFalier extends AuthState{
-  final Exception e;
 
-  const AuthStateLoggedInFalier(this.e);
+class AuthStateLoggedInFalier extends AuthState {
+  final Exception exeption;
+
+  const AuthStateLoggedInFalier(this.exeption);
 }
+
+class AuthStateNeedsVerification extends AuthState {
+  const AuthStateNeedsVerification();
+}
+
 class AuthStateLoggedOut extends AuthState {
   const AuthStateLoggedOut();
+}
+
+class AuthStateLoggedOutFalier extends AuthState {
+  final Exception exeption;
+
+  const AuthStateLoggedOutFalier(this.exeption);
 }
