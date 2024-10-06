@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else if (!user.isEmailVerified) {
         emit(const AuthStateNeedsVerification());
       } else {
-        AuthStateLoggedIn(user);
+        emit(AuthStateLoggedIn(user));
       }
     });
     on<AuthEventLogin>((event, emit) async {
