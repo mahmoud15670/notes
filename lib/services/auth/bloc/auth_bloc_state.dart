@@ -12,3 +12,7 @@ class AuthBlocInitialze extends AuthBlocState {
 class AuthBlocLoggedIn extends AuthBlocState {
   const AuthBlocLoggedIn();
 }
+
+class AuthBlocLoggedOut extends AuthBlocState {
+  const AuthBlocLoggedOut();
+}
