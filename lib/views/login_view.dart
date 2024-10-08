@@ -100,10 +100,9 @@ class _LoginViewState extends State<LoginView> {
                 const Text("don't have account ?"),
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        registerRout,
-                        (route) => false,
-                      );
+                      context
+                          .read<AuthBloc>()
+                          .add(const AuthEventShouldRegister());
                     },
                     child: const Text('signup !'))
               ],
