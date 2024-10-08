@@ -29,8 +29,8 @@ class AuthStateLoggedOut extends AuthState with EquatableMixin {
   final Exception? exeption;
   final bool? isLoading;
   const AuthStateLoggedOut({
-    this.exeption,
-    this.isLoading,
+    required this.exeption,
+    required this.isLoading,
   });
 
   @override
