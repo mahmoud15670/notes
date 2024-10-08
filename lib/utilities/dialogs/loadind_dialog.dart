@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-typedef CloseDialog = void Function();
+typedef closeDialog = void Function();
 
-CloseDialog showLoadingDialog({
+closeDialog showLoadingDialog({
   required BuildContext context,
   required String text,
 }) {

@@ -8,6 +8,7 @@ import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
 import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/services/auth/bloc/auth_state.dart';
 import 'package:mynotes/utilities/dialogs/error_dialog.dart';
+import 'package:mynotes/utilities/dialogs/loadind_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -19,6 +20,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
+  closeDialog? _closeDialogHandle;
 
   @override
   void initState() {
@@ -36,42 +38,48 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _email,
-            enableSuggestions: false,
-            autocorrect: false,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: 'Enter your email'),
-          ),
-          TextField(
-            controller: _password,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: const InputDecoration(hintText: 'Enter your password'),
-          ),
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) async {
-              if (state is AuthStateLoggedOut) {
-                if (state.exeption is InvalidCredentialAuthException) {
-                  await showErrorDialog(
-                      context, 'email or password is incorrect');
-                } else if (state.exeption is InvaidEmailAuthException) {
-                  await showErrorDialog(context, 'invalid email');
-                } else if (state.exeption is GenericAuthException) {
-                  await showErrorDialog(context,
-                      'An Error happend check networ our you cerdetial');
-                }
-              }
-            },
-            child: TextButton(
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) async {
+        if (state is AuthStateLoggedOut) {
+          final closeDialog = _closeDialogHandle;
+          if (!state.isLoading && closeDialog != null){
+            closeDialog();
+            _closeDialogHandle = null;
+          }
+
+          if (state.exeption is InvalidCredentialAuthException) {
+            await showErrorDialog(context, 'email or password is incorrect');
+          } else if (state.exeption is InvaidEmailAuthException) {
+            await showErrorDialog(context, 'invalid email');
+          } else if (state.exeption is GenericAuthException) {
+            await showErrorDialog(
+                context, 'An Error happend check networ our you cerdetial');
+          }
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Login'),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        body: Column(
+          children: [
+            TextField(
+              controller: _email,
+              enableSuggestions: false,
+              autocorrect: false,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(hintText: 'Enter your email'),
+            ),
+            TextField(
+              controller: _password,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration:
+                  const InputDecoration(hintText: 'Enter your password'),
+            ),
+            TextButton(
                 onPressed: () {
                   final email = _email.text;
                   final password = _password.text;
@@ -81,22 +89,22 @@ class _LoginViewState extends State<LoginView> {
                       ));
                 },
                 child: const Text('Login')),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("don't have account ?"),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      registerRout,
-                      (route) => false,
-                    );
-                  },
-                  child: const Text('signup !'))
-            ],
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("don't have account ?"),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        registerRout,
+                        (route) => false,
+                      );
+                    },
+                    child: const Text('signup !'))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
