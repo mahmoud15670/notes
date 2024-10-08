@@ -18,7 +18,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     on<AuthEventLogin>((event, emit) async {
       try {
-        emit(const AuthStateLoading());
         final user = await provider.logIn(
           email: event.email,
           password: event.password,
