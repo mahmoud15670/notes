@@ -34,7 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
     on<AuthEventShouldRegister>((event, emit) {
-      emit(AuthStateNeedsVerification());
+      emit(AuthStateRegistring(null));
     });
     on<AuthEventLogin>((event, emit) async {
       try {
