@@ -6,6 +6,7 @@ import 'package:mynotes/constance/routs.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
+import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/services/auth/bloc/auth_state.dart';
 import 'package:mynotes/utilities/dialogs/error_dialog.dart';
 
@@ -80,13 +81,12 @@ class _RegisterViewState extends State<RegisterView> {
                   onPressed: () async {
                     final email = _email.text;
                     final password = _password.text;
-
-                    await AuthServices.firebase().createUser(
-                      email: email,
-                      password: password,
-                    );
-                    await AuthServices.firebase().sendEmailVerification();
-                    Navigator.of(context).pushNamed(verfiyRout);
+                    context.read<AuthBloc>().add(
+                          AuthEventRegister(
+                            email,
+                            password,
+                          ),
+                        );
                   },
                   child: const Text('Register')),
               Row(
