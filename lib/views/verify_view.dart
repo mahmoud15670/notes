@@ -29,7 +29,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
               children: [
                 const Text("if you didn't reseved email "),
                 TextButton(
-                  onPressed: () async {
+                  onPressed: () {
                     context.read<AuthBloc>().add(
                           const AuthEventSendEmailVerficaion(),
                         );
@@ -39,7 +39,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
               ],
             ),
             TextButton(
-                onPressed: () async {
+                onPressed: () {
                   context.read<AuthBloc>().add(const AuthEventLogout());
                 },
                 child: const Text('back'))
