@@ -6,11 +6,11 @@ abstract class AuthState {
   const AuthState();
 }
 
-class AuthStateUninitialized extends AuthState{
+class AuthStateUninitialized extends AuthState {
   const AuthStateUninitialized();
 }
 
-class AuthStateRegistring extends AuthState{
+class AuthStateRegistring extends AuthState {
   final Exception? exeption;
   const AuthStateRegistring(this.exeption);
 }
@@ -20,18 +20,15 @@ class AuthStateLoggedIn extends AuthState {
   const AuthStateLoggedIn(this.currentUser);
 }
 
-
 class AuthStateNeedsVerification extends AuthState {
   const AuthStateNeedsVerification();
 }
 
 class AuthStateLoggedOut extends AuthState {
   final Exception? exeption;
-  const AuthStateLoggedOut(this.exeption);
-}
-
-class AuthStateLoggedOutFalier extends AuthState {
-  final Exception exeption;
-
-  const AuthStateLoggedOutFalier(this.exeption);
+  final bool isLoading;
+  const AuthStateLoggedOut(
+    this.exeption,
+    this.isLoading,
+  );
 }
