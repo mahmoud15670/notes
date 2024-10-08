@@ -47,7 +47,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           null,
           false,
         ));
-        emit(AuthStateLoggedIn(user));
+        if (!user.isEmailVerified) {
+          emit(AuthStateNeedsVerification());
+        } else {
+          emit(AuthStateLoggedIn(user));
+        }
       } on Exception catch (e) {
         emit(AuthStateLoggedOut(
           e,
