@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mynotes/constance/routs.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
-import 'package:mynotes/services/auth/auth_services.dart';
 import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
 import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/services/auth/bloc/auth_state.dart';
@@ -95,10 +93,7 @@ class _RegisterViewState extends State<RegisterView> {
                   const Text("have account ?"),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          loginRout,
-                          (route) => false,
-                        );
+                        context.read<AuthBloc>().add(const AuthEventLogout());
                       },
                       child: const Text('login !'))
                 ],
