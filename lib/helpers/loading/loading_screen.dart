@@ -46,8 +46,9 @@ class LoadingScreen {
             constraints: BoxConstraints(
               maxHeight: size.height * 0.8,
               maxWidth: size.width*0.8,
-              minHeight: size.height*0.5
+              minWidth: size.width*0.5,
             ),
+            decoration: BoxDecoration(),
           ),
         ),
       );
