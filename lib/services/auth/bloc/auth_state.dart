@@ -38,9 +38,14 @@ class AuthStateNeedsVerification extends AuthState {
 
 class AuthStateLoggedOut extends AuthState with EquatableMixin {
   final Exception? exeption;
-  const AuthStateLoggedOut(
-      {required this.exeption, required bool isLoading, String? loadingText})
-      : super(isLoading: isLoading, loadingText: loadingText);
+  const AuthStateLoggedOut({
+    required this.exeption,
+    required bool isLoading,
+    String? loadingText,
+  }) : super(
+          isLoading: isLoading,
+          loadingText: loadingText,
+        );
 
   @override
   List<Object?> get props => [exeption, isLoading];
