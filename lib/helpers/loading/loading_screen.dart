@@ -53,7 +53,11 @@ class LoadingScreen {
             ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(),
+              child: SingleChildScrollView(
+                child: Column(
+                  
+                ),
+              ),
             ),
           ),
         ),
