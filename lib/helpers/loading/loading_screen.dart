@@ -38,7 +38,15 @@ class LoadingScreen {
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
     final overlay = OverlayEntry(builder: (context) {
-      return Material();
+      return Material(
+        color: Colors.black.withAlpha(150),
+        child: Center(
+          child: Container(
+            color: Colors.red[200],
+            constraints: BoxConstraints(maxHeight: size.height*0.8,),
+          ),
+        ),
+      );
     });
     state.insert(overlay);
     return LoadingScreenController(
