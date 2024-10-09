@@ -48,7 +48,9 @@ class LoadingScreen {
               maxWidth: size.width*0.8,
               minWidth: size.width*0.5,
             ),
-            decoration: BoxDecoration(),
+            decoration: BoxDecoration(
+              color: Colors.black
+            ),
           ),
         ),
       );
