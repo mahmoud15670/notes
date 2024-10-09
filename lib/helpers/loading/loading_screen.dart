@@ -9,13 +9,25 @@ class LoadingScreen {
   LoadingScreen._sharedInstance();
 
   LoadingScreenController? controller;
-  void show(){
-    
+  void show({
+    required BuildContext context,
+    required String text,
+  }) {
+    if (controller?.update(text) ?? false) {
+      return;
+    } else {
+      controller = showOverlay(
+        context: context,
+        text: text,
+      );
+    }
   }
-  void hide(){
+
+  void hide() {
     controller?.close();
     controller = null;
   }
+
   LoadingScreenController showOverlay({
     required BuildContext context,
     required String text,
