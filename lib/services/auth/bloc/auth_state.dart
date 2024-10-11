@@ -53,11 +53,11 @@ class AuthStateLoggedOut extends AuthState with EquatableMixin {
 
 class AuthStateForgotPassword extends AuthState {
   final Exception? exeption;
-  final String email;
+  final bool hasSendEmail;
 
   const AuthStateForgotPassword({
     required bool isLoading,
     required this.exeption,
-    required this.email,
+    required this.hasSendEmail,
   }) : super(isLoading: isLoading);
 }
