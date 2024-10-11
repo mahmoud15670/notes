@@ -36,7 +36,8 @@ class _PasswordResetViewState extends State<PasswordResetView> {
           if (state.hasSendEmail) {
             _controller.clear();
             await passwordResetDialog(context);
-          } else if (state.exeption != null) {
+          }
+          if (state.exeption != null) {
             await showErrorDialog(
               context,
               'we cannot prosses your requset',
@@ -44,7 +45,23 @@ class _PasswordResetViewState extends State<PasswordResetView> {
           }
         }
       },
-      child: Container(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Reset Password'),
+        ),
+        body: Column(
+          children: [
+            const Text('to reset your passwor, enter your emai here'),
+            TextField(
+              controller: _controller,
+              autocorrect: false,
+              autofocus: true,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(hi),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
