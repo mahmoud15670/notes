@@ -9,6 +9,7 @@ import 'package:mynotes/services/auth/firebase_auth_provider.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/notes/create_update_note_view.dart';
 import 'package:mynotes/views/notes/notes_view.dart';
+import 'package:mynotes/views/password_reset_view.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/verify_view.dart';
 
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
             context: context,
             text: state.loadingText ?? 'please wait a moment...',
           );
-        }else{
+        } else {
           LoadingScreen().hide();
         }
       },
@@ -57,6 +58,8 @@ class HomePage extends StatelessWidget {
           return const LoginView();
         } else if (state is AuthStateRegistring) {
           return const RegisterView();
+        } else if (state is AuthStateForgotPassword) {
+          return const PasswordResetView();
         } else {
           return const Scaffold(
             body: Center(
