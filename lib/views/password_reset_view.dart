@@ -53,7 +53,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              const Text('to reset your passwor, enter your emai here'),
+              const Text('to reset your passwor, enter your email here.'),
               TextField(
                 controller: _controller,
                 autocorrect: false,
