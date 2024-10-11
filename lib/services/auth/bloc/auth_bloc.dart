@@ -85,6 +85,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
       final email = event.email;
       if (email == null) {
+        return;
       } else {
         try {
           await provider.sendPasswordResetEmail(toEmail: email);
