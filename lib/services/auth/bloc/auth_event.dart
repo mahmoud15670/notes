@@ -39,3 +39,9 @@ class AuthEventSendEmailVerficaion extends AuthEvent {
 class AuthEventLogout extends AuthEvent {
   const AuthEventLogout();
 }
+
+class AuthEventForgotPassword extends AuthEvent {
+  final String? email;
+
+  const AuthEventForgotPassword({required this.email});
+}
