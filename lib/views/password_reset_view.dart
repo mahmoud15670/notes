@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
+import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/services/auth/bloc/auth_state.dart';
 import 'package:mynotes/utilities/dialogs/error_dialog.dart';
 import 'package:mynotes/utilities/dialogs/password_reset_dialog.dart';
@@ -49,17 +49,35 @@ class _PasswordResetViewState extends State<PasswordResetView> {
         appBar: AppBar(
           title: const Text('Reset Password'),
         ),
-        body: Column(
-          children: [
-            const Text('to reset your passwor, enter your emai here'),
-            TextField(
-              controller: _controller,
-              autocorrect: false,
-              autofocus: true,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(hi),
-            )
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const Text('to reset your passwor, enter your emai here'),
+              TextField(
+                controller: _controller,
+                autocorrect: false,
+                autofocus: true,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(hintText: 'email'),
+              ),
+              TextButton(
+                onPressed: () {
+                  final email = _controller.text;
+                  context
+                      .read<AuthBloc>()
+                      .add(AuthEventForgotPassword(email: email));
+                },
+                child: const Text('send'),
+              ),
+              TextButton(
+                onPressed: () {
+                  context.read<AuthBloc>().add(AuthEventLogout());
+                },
+                child: const Text('back'),
+              )
+            ],
+          ),
         ),
       ),
     );
