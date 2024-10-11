@@ -48,6 +48,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Reset Password'),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
