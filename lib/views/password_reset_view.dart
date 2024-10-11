@@ -21,21 +21,26 @@ class _PasswordResetViewState extends State<PasswordResetView> {
     _controller = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
-        if(state is AuthStateForgotPassword){
-          if(state.hasSendEmail){
+        if (state is AuthStateForgotPassword) {
+          if (state.hasSendEmail) {
             _controller.clear();
             await passwordResetDialog(context);
-          }else if (state.exeption != null){
-            await showErrorDialog(context, ''); 
+          } else if (state.exeption != null) {
+            await showErrorDialog(
+              context,
+              'we cannot prosses your requset',
+            );
           }
         }
       },
