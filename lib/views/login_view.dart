@@ -80,6 +80,14 @@ class _LoginViewState extends State<LoginView> {
                       ));
                 },
                 child: const Text('Login')),
+            TextButton(
+              onPressed: () {
+                context
+                    .read<AuthBloc>()
+                    .add(const AuthEventForgotPassword());
+              },
+              child: const Text('forgot your password!'),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
