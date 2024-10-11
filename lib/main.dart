@@ -17,6 +17,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     title: 'Notes',
+    debugShowCheckedModeBanner: false,
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 39, 176, 42)),
