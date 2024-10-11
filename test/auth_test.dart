@@ -132,4 +132,10 @@ class MoukAuthProvider implements AuthProvider {
     );
     _user = newUser;
   }
+
+  @override
+  Future<void> sendPasswordResetEmail({required String toEmail}) {
+    if (!isInitialized) throw NotInitializedException();
+    throw UnimplementedError();
+  }
 }
