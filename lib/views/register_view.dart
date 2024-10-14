@@ -60,48 +60,50 @@ class _RegisterViewState extends State<RegisterView> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                const Text('Please enter an email address that can be contacted for verification.'),
-                TextField(
-                  controller: _email,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(hintText: 'Enter your email'),
-                ),
-                TextField(
-                  controller: _password,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration:
-                      const InputDecoration(hintText: 'Enter your password'),
-                ),
-                TextButton(
-                    onPressed: () async {
-                      final email = _email.text;
-                      final password = _password.text;
-                      context.read<AuthBloc>().add(
-                            AuthEventRegister(
-                              email,
-                              password,
-                            ),
-                          );
-                    },
-                    child: const Text('Register')),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("have account ?"),
-                    TextButton(
-                        onPressed: () {
-                          context.read<AuthBloc>().add(const AuthEventLogout());
-                        },
-                        child: const Text('login !'))
-                  ],
-                )
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Text('Please enter an email address that can be contacted for verification.'),
+                  TextField(
+                    controller: _email,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(hintText: 'Enter your email'),
+                  ),
+                  TextField(
+                    controller: _password,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration:
+                        const InputDecoration(hintText: 'Enter your password'),
+                  ),
+                  TextButton(
+                      onPressed: () async {
+                        final email = _email.text;
+                        final password = _password.text;
+                        context.read<AuthBloc>().add(
+                              AuthEventRegister(
+                                email,
+                                password,
+                              ),
+                            );
+                      },
+                      child: const Text('Register')),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("have account ?"),
+                      TextButton(
+                          onPressed: () {
+                            context.read<AuthBloc>().add(const AuthEventLogout());
+                          },
+                          child: const Text('login !'))
+                    ],
+                  )
+                ],
+              ),
             ),
           )),
     );
