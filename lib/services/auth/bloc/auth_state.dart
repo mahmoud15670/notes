@@ -19,8 +19,10 @@ class AuthStateUninitialized extends AuthState {
 
 class AuthStateRegistring extends AuthState {
   final Exception? exeption;
-  const AuthStateRegistring({this.exeption, required bool isLoading})
-      : super(isLoading: isLoading);
+  const AuthStateRegistring({
+    this.exeption,
+    required bool isLoading,
+  }) : super(isLoading: isLoading);
 }
 
 class AuthStateLoggedIn extends AuthState {
