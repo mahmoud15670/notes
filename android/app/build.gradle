@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.mgh.mynotes"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 33
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
